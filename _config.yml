@@ -1,0 +1,71 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog.
+#
+# If you need help with YAML syntax, here are some quick references for you: 
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+
+title: fastpages
+description: An easy to use blogging platform with support for Jupyter Notebooks.
+github_username: fastai
+# you can comment the below line out if your repo name is not different than your baseurl
+github_repo: "fastpages"
+
+# OPTIONAL: override baseurl and url if using a custom domain
+url: "https://fastpages.fast.ai" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. "/blog".  WARNING: if you are not using a custom domain, the baseurl *must* be set to your repo name.
+
+# Email and twitter are optional:
+email: 
+twitter_username: "fastdotai"
+
+# Set this to true to get LaTeX math equation support
+use_math: 
+
+# Set this to true to display the summary of your blog post under your title on the Home page.
+show_description: true
+
+# Set this to true to display image previews on home page, if they exist
+show_image: false
+
+# Set this to true to display tags on each post
+show_tags: true
+
+# Add your Google Analytics ID here if you have one and want to use it
+google_analytics:
+
+exclude:
+  - CONTRIBUTING.md
+  - DEVELOPMENT.md
+  - settings.ini
+  - docker-compose.yml
+  - action.yml
+  - README_TEMPLATE.md
+  - Makefile
+
+# Everything below here should be left alone. Modifications may break fastpages
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-gist
+  - jekyll-octicons
+  - jekyll-github-metadata
+  - jekyll-toc
+  - jekyll-twitter-plugin
+  - jekyll-relative-links
+  - jekyll-seo-tag
+
+titles_from_headings:
+  enabled:     true
+  strip_title: true
+  collections: true
+
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  math_engine: katex
+  input: GFM
+  auto_ids: true
+  hard_wrap: false
+  syntax_highlighter: rouge
