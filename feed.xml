@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://jhermann.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jhermann.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-02-25T16:11:40-06:00</updated><id>https://jhermann.github.io/blog/feed.xml</id><title type="html">jhermann’s fastpages</title><subtitle>Pythonista · With a cup of Java on the side.</subtitle><entry><title type="html">Continuous Delivery</title><link href="https://jhermann.github.io/blog/2020/02/25/2020-02-26-continuous-delivery.html" rel="alternate" type="text/html" title="Continuous Delivery" /><published>2020-02-25T16:11:40-06:00</published><updated>2020-02-25T16:11:40-06:00</updated><id>https://jhermann.github.io/blog/2020/02/25/2020-02-26-continuous-delivery</id><content type="html" xml:base="https://jhermann.github.io/blog/2020/02/25/2020-02-26-continuous-delivery.html">&lt;!--
-title: &quot;Continuous Delivery&quot;
-summary: &quot;An introcution to the devops practice of CI/CD.&quot;
-badges: true
-comments: true
-image: &quot;images/devops.png&quot;
-categories:
-    - &quot;devops&quot;
-    - &quot;continuous-delivery&quot;
-    - &quot;automation&quot;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://jhermann.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jhermann.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-02-25T16:16:32-06:00</updated><id>https://jhermann.github.io/blog/feed.xml</id><title type="html">jhermann’s fastpages</title><subtitle>Pythonista · With a cup of Java on the side.</subtitle><entry><title type="html">Continuous Delivery</title><link href="https://jhermann.github.io/blog/2020/02/25/2020-02-26-continuous-delivery.html" rel="alternate" type="text/html" title="Continuous Delivery" /><published>2020-02-25T16:16:32-06:00</published><updated>2020-02-25T16:16:32-06:00</updated><id>https://jhermann.github.io/blog/2020/02/25/2020-02-26-continuous-delivery</id><content type="html" xml:base="https://jhermann.github.io/blog/2020/02/25/2020-02-26-continuous-delivery.html">&lt;!--
+- title: &quot;Continuous Delivery&quot;
+- summary: &quot;An introcution to the devops practice of CI/CD.&quot;
+- badges: true
+- comments: true
+- image: &quot;images/devops.png&quot;
 --&gt;
 
 &lt;p&gt;&lt;img src=&quot;/blog/images/devops.png&quot; alt=&quot;DevOps Feedback Cycle&quot; title=&quot;DevOps Feedback Cycle&quot; /&gt;&lt;/p&gt;
