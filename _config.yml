@@ -2,7 +2,7 @@
 #
 # This config file is meant for settings that affect your whole blog.
 #
-# If you need help with YAML syntax, here are some quick references for you: 
+# If you need help with YAML syntax, here are some quick references for you:
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
@@ -17,11 +17,11 @@ url: "https://jhermann.github.io" # the base hostname & protocol for your site, 
 baseurl: "/blog" # the subpath of your site, e.g. "/blog".  WARNING: if you are not using a custom domain, the baseurl *must* be set to your repo name.
 
 # Email and twitter are optional:
-email: 
-twitter_username: "fastdotai"
+email: "jh@web.de"
+twitter_username: "jhermann_"
 
 # Set this to true to get LaTeX math equation support
-use_math: 
+use_math:
 
 # Set this to true to display the summary of your blog post under your title on the Home page.
 show_description: true
