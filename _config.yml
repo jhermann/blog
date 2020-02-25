@@ -43,6 +43,7 @@ exclude:
   - action.yml
   - README_TEMPLATE.md
   - Makefile
+  - assets/examples/
 
 # Everything below here should be left alone. Modifications may break fastpages
 theme: minima
