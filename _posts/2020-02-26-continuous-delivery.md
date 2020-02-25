@@ -1,12 +1,13 @@
 ---
-title: "Continuous Delivery"
-summary: "An introcution to the devops practice of CI/CD."
 toc: true
+description: Continuous Delivery in a nutshell.
+categories: [devops, automation]
 ---
 # Continuous Delivery
 
 <!--
-description: "Continuous Delivery in a nutshell."
+title: "Continuous Delivery"
+summary: "An introcution to the devops practice of CI/CD."
 badges: true
 comments: true
 image: "images/devops.png"
