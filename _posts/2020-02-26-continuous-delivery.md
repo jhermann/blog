@@ -1,14 +1,16 @@
 ---
-- title: "Continuous Delivery"
-- summary: "An introcution to the devops practice of CI/CD."
-- description: "Continuous Delivery in a nutshell."
-- toc: true
-- badges: true
-- comments: true
-- image: images/devops.png
-- categories: [devops, continuous-delivery, automation]
+title: "Continuous Delivery"
+summary: "An introcution to the devops practice of CI/CD."
+description: "Continuous Delivery in a nutshell."
+toc: true
+badges: true
+comments: true
+image: "images/devops.png"
+categories:
+    - "devops"
+    - "continuous-delivery"
+    - "automation"
 ---
-
 # Continuous Delivery
 
 ![DevOps Feedback Cycle]({{ site.baseurl }}/images/devops.png "DevOps Feedback Cycle")
