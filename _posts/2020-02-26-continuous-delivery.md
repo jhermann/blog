@@ -1,7 +1,7 @@
 ---
-toc: true
-description: Continuous Delivery in a nutshell.
-categories: [devops, automation]
+- toc: true
+- description: Continuous Delivery in a nutshell.
+- categories: [devops, automation]
 ---
 # Continuous Delivery
 
