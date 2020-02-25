@@ -11,9 +11,11 @@ _powered by [fastpages](https://github.com/fastai/fastpages)_
  * Blog: https://jhermann.github.io/blog/
  * Forum: [nbdev & blogging](https://forums.fast.ai/c/fastai-users/nbdev/48)
 
+
 ## Cheat Sheet
 
  * [Front-Matter related options](https://github.com/fastai/fastpages#front-matter-related-options)
+ * [Twitter card validator](https://cards-dev.twitter.com/validator)
 
 
 ## What To Do Next?
