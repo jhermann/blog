@@ -359,10 +359,10 @@ h6:hover .anchor-link {
 // my customizations
 // * image-preview class should be on the containing div!
 // * the divs below post-list should have class="post-item"!
-div.post-list div.p-3 {
+.p-3 {
     min-height: 150px;
 }
-div.post-list div div.Subhead {
+.Subhead {
     display: inline;
 }
 .image-preview {
