@@ -1,20 +1,19 @@
 ---
 - toc: true
 - description: Continuous Delivery in a nutshell.
-- categories: [devops, automation]
+- categories:
+  - "devops"
+  - "continuous-delivery"
+  - "automation"
 ---
 # Continuous Delivery
 
 <!--
-title: "Continuous Delivery"
-summary: "An introcution to the devops practice of CI/CD."
-badges: true
-comments: true
-image: "images/devops.png"
-categories:
-    - "devops"
-    - "continuous-delivery"
-    - "automation"
+- title: "Continuous Delivery"
+- summary: "An introcution to the devops practice of CI/CD."
+- badges: true
+- comments: true
+- image: "images/devops.png"
 -->
 
 ![DevOps Feedback Cycle]({{ site.baseurl }}/images/devops.png "DevOps Feedback Cycle")
