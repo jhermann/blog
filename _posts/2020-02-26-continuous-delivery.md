@@ -1,9 +1,9 @@
 ---
-- toc: true
-- description: Continuous Delivery in a nutshell.
-- badges: true
-- comments: true
-- image: images/devops.png
+toc: true
+description: Continuous Delivery in a nutshell.
+badges: true
+comments: true
+image: images/devops.png
 ---
 # Continuous Delivery
 
