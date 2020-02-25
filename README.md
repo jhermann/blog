@@ -10,7 +10,7 @@ _powered by [fastpages](https://github.com/fastai/fastpages)_
 
  * Blog: https://jhermann.github.io/blog/
  * Forum: [nbdev & blogging](https://forums.fast.ai/c/fastai-users/nbdev/48)
-
+ * Template SHA: e6dd25eb326ffe9b1b64822766bff3684d7703bb (2020-02-24 corrected nit in DEVELOPMENT.md)
 
 ## Cheat Sheet
 
