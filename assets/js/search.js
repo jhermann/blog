@@ -8,7 +8,7 @@ var documents = [{
     "id": 1,
     "url": "https://jhermann.github.io/about/",
     "title": "About Me",
-    "body": "This is where you put the contents of your About page. Like all your pages, it’s in Markdown format. This website is powered by fastpages 1.       a blogging platform that natively supports Jupyter notebooks in addition to other formats.  &#8617;    "
+    "body": "&lt;/img&gt;📝 Jürgen Hermann · 📧 jh@web. de :snake: A long long time ago, I started with Python 1. 5 at web. de,founded the MoinMoin wiki project shortly thereafter, and am nowenjoying the increased traction that Python recently gets fromdata science and machine learning.  This website is powered by fastpages "
     }, {
     "id": 2,
     "url": "https://jhermann.github.io/categories/",
