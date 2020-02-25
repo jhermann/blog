@@ -354,3 +354,19 @@ h6:hover .anchor-link {
 .lunrsearchresult a {display: block; color: #777;}
 .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
 .lunrsearchresult a:hover .title {text-decoration: underline;}
+
+
+// my customizations
+// * image-preview class should be on the containing div!
+// * the divs below post-list should have class="post-item"!
+div.post-list div.p-3 {
+    min-height: 150px;
+}
+div.post-list div div.Subhead {
+    display: inline;
+}
+.image-preview {
+    max-width: 120px;
+    float: left;
+    padding-right: 1em;
+}
