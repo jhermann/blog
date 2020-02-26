@@ -7,8 +7,8 @@
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="fastpages: Pitfalls, Tips &amp; Tricks" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="What you need to know to not go crazy because of weird system behavior." />
-<meta property="og:description" content="What you need to know to not go crazy because of weird system behavior." />
+<meta name="description" content="What you need to know to be productive and have a good user experience." />
+<meta property="og:description" content="What you need to know to be productive and have a good user experience." />
 <link rel="canonical" href="https://jhermann.github.io/blog/fastpages/how-to/2020/02/20/fastpages-pitfalls.html" />
 <meta property="og:url" content="https://jhermann.github.io/blog/fastpages/how-to/2020/02/20/fastpages-pitfalls.html" />
 <meta property="og:site_name" content="jhermann’s fastpages" />
@@ -16,7 +16,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-02-20T00:00:00-06:00" />
 <script type="application/ld+json">
-{"description":"What you need to know to not go crazy because of weird system behavior.","@type":"BlogPosting","headline":"fastpages: Pitfalls, Tips &amp; Tricks","dateModified":"2020-02-20T00:00:00-06:00","url":"https://jhermann.github.io/blog/fastpages/how-to/2020/02/20/fastpages-pitfalls.html","datePublished":"2020-02-20T00:00:00-06:00","image":"https://jhermann.github.io/blog/images/logo.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://jhermann.github.io/blog/fastpages/how-to/2020/02/20/fastpages-pitfalls.html"},"@context":"https://schema.org"}</script>
+{"description":"What you need to know to be productive and have a good user experience.","@type":"BlogPosting","headline":"fastpages: Pitfalls, Tips &amp; Tricks","dateModified":"2020-02-20T00:00:00-06:00","url":"https://jhermann.github.io/blog/fastpages/how-to/2020/02/20/fastpages-pitfalls.html","datePublished":"2020-02-20T00:00:00-06:00","image":"https://jhermann.github.io/blog/images/logo.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://jhermann.github.io/blog/fastpages/how-to/2020/02/20/fastpages-pitfalls.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -75,7 +75,7 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">fastpages: Pitfalls, Tips &amp; Tricks</h1><p class="page-description">What you need to know to not go crazy because of weird system behavior.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-02-20T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">fastpages: Pitfalls, Tips &amp; Tricks</h1><p class="page-description">What you need to know to be productive and have a good user experience.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-02-20T00:00:00-06:00" itemprop="datePublished">
         Feb 20, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -147,7 +147,7 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote>
-<p><em>This article will be updated regularly with new information as it is discovered.</em></p>
+<p>🆕 📝 <em>This article will be updated regularly with new information as it is discovered.</em></p>
 </blockquote>
 
 </div>
@@ -196,7 +196,7 @@
 <p>To get changes from upstream, check out your own copy of the template project.</p>
 <p>To catch up for the first time, find the <code>Initial commit</code> in <em>your</em> blog repository, then make sure there are no commits after the time of that commit in the template. If there are, find the last commit before that date (the last one you already have), and use its SHA for a range <code>«sha»..HEAD</code> in the update procedure that follows, starting with the <code>git diff</code>.</p>
 <p>Now to catch up, when you <code>git pull --ff-only</code> in the template, there is a line starting with <code>Updating</code> and a SHA range. Call <code>git diff «sha-range» &gt;/tmp/fastpages.patch</code>.</p>
-<p>Change to <em>your</em> blog repository workdir (make sure you have a clean workdir with no pending changes) and apply that patch: <code>patch -N -p1 &lt;/tmp/fastpages.patch</code>. Look out for patch rejects and resolve any conflicts. Finally commit the template changes, ideally mentioning the SHA range in the commit message for record-keeping.</p>
+<p>Change to <em>your</em> blog repository workdir (make sure you have a clean workdir with no pending changes) and apply that patch: <code>patch -N -p1 &lt;/tmp/fastpages.patch</code>. Look out for patch rejects and resolve any conflicts. Finally commit the template changes, ideally mentioning the SHA range in the commit message for record-keeping (<a href="https://github.com/jhermann/blog/commit/051441e8020331ce29c9138633dc63ee275f2a84">example</a>).</p>
 
 </div>
 </div>
