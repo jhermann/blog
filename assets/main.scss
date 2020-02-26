@@ -357,21 +357,25 @@ h6:hover .anchor-link {
 
 
 // my customizations
+.footer-heading {
+	display: none;
+}
+
 // * image-preview class should be on the containing div!
 // * the divs below post-list should have class="post-item"!
 /*
-.p-3 {
-    min-height: 150px;
-}
-.p-3 li {
-    padding-left: 135px;
-}
-.Subhead {
-    display: inline;
-    position: absolute;
-}
-.image-preview {
-    max-width: 120px;
-    float: left;
-}
-*/
+        .p-3 {
+            min-height: 150px;
+        }
+        .p-3 li {
+            padding-left: 135px;
+        }
+        .Subhead {
+            display: inline;
+            position: absolute;
+        }
+        .image-preview {
+            max-width: 120px;
+            float: left;
+        }
+        */
