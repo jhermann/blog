@@ -12,6 +12,7 @@
 [![GH-Pages](https://github.com/jhermann/blog/workflows/GH-Pages%20Status/badge.svg)](https://github.com/jhermann/blog/actions?query=workflow%3A%22GH-Pages+Status%22)
 
  * Blog: https://jhermann.github.io/blog/
+ * RSS feed: https://jhermann.github.io/blog/feed.xml
  * Initial template SHA: e6dd25eb326ffe9b1b64822766bff3684d7703bb (2020-02-24 corrected nit in DEVELOPMENT.md)
 
 ## Cheat Sheet
