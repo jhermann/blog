@@ -196,7 +196,7 @@
 <p>To get changes from upstream, check out your own copy of the template project.</p>
 <p>To catch up for the first time, find the <code>Initial commit</code> in <em>your</em> blog repository, then make sure there are no commits after the time of that commit in the template. If there are, find the last commit before that date (the last one you already have), and use its SHA for a range <code>«sha»..HEAD</code> in the update procedure that follows, starting with the <code>git diff</code>.</p>
 <p>Now to catch up, when you <code>git pull --ff-only</code> in the template, there is a line starting with <code>Updating</code> and a SHA range. Call <code>git diff «sha-range» &gt;/tmp/fastpages.patch</code>.</p>
-<p>Change to <em>your</em> blog repository workdir (make sure you have a clean workdir with no pending changes) and apply that patch: <code>patch -N -p1 &lt;/tmp/fastpages.patch</code>. Look out for patch rejects and solve and merhe conflicts. Finalyl commit the template changes, ideally mentioning the SHA range in the commit message for record-keeping.</p>
+<p>Change to <em>your</em> blog repository workdir (make sure you have a clean workdir with no pending changes) and apply that patch: <code>patch -N -p1 &lt;/tmp/fastpages.patch</code>. Look out for patch rejects and solve and resolve any conflicts. Finally commit the template changes, ideally mentioning the SHA range in the commit message for record-keeping.</p>
 
 </div>
 </div>
