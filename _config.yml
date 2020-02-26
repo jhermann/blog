@@ -44,7 +44,6 @@ exclude:
   - README_TEMPLATE.md
   - Makefile
   - assets/examples/
-  - _posts/2020-02-26-continuous-delivery.md
 
 # Everything below here should be left alone. Modifications may break fastpages
 theme: minima
