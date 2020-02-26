@@ -1,47 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://jhermann.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jhermann.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-02-25T18:09:46-06:00</updated><id>https://jhermann.github.io/blog/feed.xml</id><title type="html">jhermann’s fastpages</title><subtitle>Pythonista · With a cup of Java on the side.</subtitle><entry><title type="html">Continuous Delivery</title><link href="https://jhermann.github.io/blog/2020/02/25/2020-02-26-continuous-delivery.html" rel="alternate" type="text/html" title="Continuous Delivery" /><published>2020-02-25T18:09:46-06:00</published><updated>2020-02-25T18:09:46-06:00</updated><id>https://jhermann.github.io/blog/2020/02/25/2020-02-26-continuous-delivery</id><content type="html" xml:base="https://jhermann.github.io/blog/2020/02/25/2020-02-26-continuous-delivery.html">&lt;!--
-- title: &quot;Continuous Delivery&quot;
-- summary: &quot;An introcution to the devops practice of CI/CD.&quot;
-- categories:
-  - &quot;devops&quot;
-  - &quot;continuous-delivery&quot;
-  - &quot;automation&quot;
---&gt;
-
-&lt;p&gt;&lt;img src=&quot;/blog/images/devops.png&quot; alt=&quot;DevOps Feedback Cycle&quot; title=&quot;DevOps Feedback Cycle&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;I wrote this back in September 2014 and never published it, but since it’s an introductory piece it stands its ground, so let this serve as an initial post…&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;cd-in-a-nutshell&quot;&gt;CD in a Nutshell&lt;/h2&gt;
-
-&lt;p&gt;A typical mission statement for Continuous Delivery is this…&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Our highest priority is to satisfy the customer,
-through early and continuous delivery of valuable software.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Continuous Delivery strives to improve the process of software delivery, by applying Continuous Deployment paired with automated testing and Continuous Integration. The goal is creating software developed to a high standard and easily packaged and deployed to test environments, resulting in the ability to rapidly, reliably and repeatedly push out enhancements and bug fixes to customers in small increments, at low risk and with minimal manual overhead.&lt;/p&gt;
-
-&lt;p&gt;CD is effective because it facilitates an explorative approach by providing real, valuable measurements of the output of the process, and feeding those results back into the process. It’s the next logical step after applying Agile principles to development, by expanding the scope to the whole software life-cycle and all involved parties, from inception to going live and then maintaining the product for a substantial amount of time in fast-paced iterations.&lt;/p&gt;
-
-&lt;h2 id=&quot;some-more-details&quot;&gt;Some More Details&lt;/h2&gt;
-
-&lt;p&gt;Continuous Delivery means that your software is production-ready from day one of your project (even when it’s not “feature complete”), and that you can release to users on demand at the push of a button. There are several practices and patterns that enable this, but the foundation is formed in particular by excellent configuration management, continuous integration, and comprehensive automated testing at all levels. The key pattern is the deployment pipeline, which is effectively the extension of continuous integration out to production, whereby every check-in produces a release candidate which is assessed for its fitness to be released to production through a series of automated and then manual tests.&lt;/p&gt;
-
-&lt;p&gt;In order to be able to perform these validations against every build, your regression tests must be automated — both at the unit and acceptance level. Humans then perform tasks such as exploratory testing, usability testing, and showcases as later validations against builds that have already passed the automated tests. Builds can be deployed automatically on demand to testing, staging and production environments by the people authorized to do so — note that this means deployments are triggered by humans and performed by machines.&lt;/p&gt;
-
-&lt;p&gt;Through these practices, teams can get fast feedback on whether the software being delivered is useful, reduce the risk of release, and achieve a much more predictable, reliable process for software delivery. The backbone of CD is a culture in which everybody, if somehow involved in the delivery process, collaborates throughout the life-cycle of the product — developers, testers, infrastructure, operators, DBAs, managers, and customers alike.&lt;/p&gt;
-
-&lt;h2 id=&quot;where-to-go-from-here&quot;&gt;Where to Go From Here?&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://continuousdelivery.com/about/&quot;&gt;Jez Humble’s Blog · Continuous Delivery&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://itrevolution.com/devops-blog/&quot;&gt;IT Revolution DevOps Blog&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.devopsweekly.com/&quot;&gt;Devops Weekly Mailing List&lt;/a&gt; (by &lt;a href=&quot;https://twitter.com/garethr&quot;&gt;@garethr&lt;/a&gt;)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://teamtopologies.com/&quot;&gt;Team Topologies&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Auto-convert Jupyter Notebooks To Posts</title><link href="https://jhermann.github.io/blog/fastpages/jupyter/2020/02/25/sample-from-readme.html" rel="alternate" type="text/html" title="Auto-convert Jupyter Notebooks To Posts" /><published>2020-02-25T00:00:00-06:00</published><updated>2020-02-25T00:00:00-06:00</updated><id>https://jhermann.github.io/blog/fastpages/jupyter/2020/02/25/sample-from-readme</id><content type="html" xml:base="https://jhermann.github.io/blog/fastpages/jupyter/2020/02/25/sample-from-readme.html">&lt;!--
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://jhermann.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jhermann.github.io/blog/" rel="alternate" type="text/html" /><updated>2020-02-25T19:59:05-06:00</updated><id>https://jhermann.github.io/blog/feed.xml</id><title type="html">jhermann’s fastpages</title><subtitle>Pythonista · With a cup of Java on the side.</subtitle><entry><title type="html">Auto-convert Jupyter Notebooks To Posts</title><link href="https://jhermann.github.io/blog/fastpages/jupyter/2020/02/25/sample-from-readme.html" rel="alternate" type="text/html" title="Auto-convert Jupyter Notebooks To Posts" /><published>2020-02-25T00:00:00-06:00</published><updated>2020-02-25T00:00:00-06:00</updated><id>https://jhermann.github.io/blog/fastpages/jupyter/2020/02/25/sample-from-readme</id><content type="html" xml:base="https://jhermann.github.io/blog/fastpages/jupyter/2020/02/25/sample-from-readme.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
