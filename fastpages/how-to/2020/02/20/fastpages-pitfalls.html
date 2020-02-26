@@ -81,7 +81,7 @@
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      2 min read
     
 </span></p>
 
@@ -155,6 +155,16 @@
 <li>Isolate the title, subtitle, and metadata into their own cell (the first one).</li>
 <li>Currently, the only way to refer to the same image from metadata <em>and</em> notebook content is to place it in <code>images/</code> and use an absolute GH user content URL in your <code>![](…)</code> markup.</li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-Tos">How-Tos<a class="anchor-link" href="#How-Tos">&#182;</a></h2><h3 id="Updating-the-fastpages-Template">Updating the fastpages Template<a class="anchor-link" href="#Updating-the-fastpages-Template">&#182;</a></h3><p>To get changes from upstream, check out your own copy of the template project.</p>
+<p>To catch up for the first time, find the <code>Initial commit</code> in <em>your</em> blog repository, then make sure there are no commits after the time of that commit in the template. If there are, find the first new one, and use its SHA for a range <code>«sha»..HEAD</code> in the update procedure that follows.</p>
+<p>Now to catch up, when you <code>git pull --ff-only</code> in the template, there is a line starting with <code>Updating</code> and a SHA range. Call <code>git diff «sha-range» &gt;/tmp/fastpages.patch</code>.</p>
+<p>Change to <em>your</em> blog repository workdir (make sure you have a clean workdir with no pending changes) and apply that patch: <code>patch -N -p1 &lt;/tmp/fastpages.patch</code>. Look out for patch rejects and solve and merhe conflicts. Finalyl commit the template changes, ideally mentioning the SHA range in the commit message for record-keeping.</p>
 
 </div>
 </div>
