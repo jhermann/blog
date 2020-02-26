@@ -289,13 +289,6 @@ h1:hover .anchor-link, h2:hover .anchor-link, h3:hover .anchor-link, h4:hover .a
 
 .lunrsearchresult a:hover .title { text-decoration: underline; }
 
-/*
-.p-3 { min-height: 150px;
-}
-.p-3 li { padding-left: 135px;
-}
-.Subhead { display: inline; position: absolute;
-}
-.image-preview { max-width: 120px; float: left;
-}
-*/
+.footer-heading { display: none; }
+
+/* .p-3 { min-height: 150px; } .p-3 li { padding-left: 135px; } .Subhead { display: inline; position: absolute; } .image-preview { max-width: 120px; float: left; } */
