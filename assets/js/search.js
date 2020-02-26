@@ -21,9 +21,9 @@ var documents = [{
     "body": "WarningDo not manually save images into this folder. This is used by GitHub Actions to automatically copy images.  Any images you save into this folder could be deleted at build time. "
     }, {
     "id": 4,
-    "url": "https://jhermann.github.io/fastpages/jupyter/2020/02/25/sample-from-readme.html",
-    "title": "Auto-convert Jupyter Notebooks To Posts",
-    "body": "2020/02/25 -           fastpages will automatically convert Jupyter Notebooks saved into this directory as blog posts! You must save your notebook with the naming convention YYYY-MM-DD-*. ipynb.  Examples of valid filenames are: 2020-01-28-My-First-Post. ipynb2012-09-12-how-to-write-a-blog. ipynbIf you fail to name your file correctly, fastpages will automatically attempt to fix the problem by prepending the last modified date of your notebook. However, it is recommended that you name your files properly yourself for more transparency. See Writing Blog Posts With Jupyter for more details. "
+    "url": "https://jhermann.github.io/2020/02/25/2020-02-20-fastpages-pitfalls.html",
+    "title": "",
+    "body": "2020/02/25 -           This article will be updated regularly with new information as it is discovered. Introduction&#182;: fastpages will automatically convert Jupyter Notebooks saved into the _notebooks directory as blog posts! You must save your notebook with the naming convention YYYY-MM-DD-*. ipynb. Otherwise the file's modification time is used, but that is not something you should rely on. See Writing Blog Posts With Jupyter for more details. Things to Consider&#182;: Do not use today's date in filenames if you plan to publish soonish – timezone differences to the build machines will possibly make your article disappear from the generated index. Isolate the title, subtitle, and metadata into their own cell (the first one). Currently, the only way to refer to the same image from metadata and notebook content is to place it in images/ and use an absolute GH user content URL in your ![](…) markup. "
     }, {
     "id": 5,
     "url": "https://jhermann.github.io/continuous-delivery/devops/automation/2020/02/25/continuous-delivery.html",
