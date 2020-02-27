@@ -166,7 +166,8 @@ and can be found on <a href="https://github.com/inishchith/autoenv">GitHub</a>.<
 
 <pre><code>mkdir -p ~/.local
 test -d ~/.local/autoenv \
-    || git clone "https://github.com/kennethreitz/autoenv.git" ~/.local/autoenv
+    || git clone "https://github.com/kennethreitz/autoenv.git" \
+                 ~/.local/autoenv
 echo &gt;&gt;~/.bash_aliases ". ~/.local/autoenv/activate.sh"
 . ~/.local/autoenv/activate.sh</code></pre>
 <p>That's all there is to it. Now you just have to add a <code>.env</code> file to your project,
@@ -181,14 +182,16 @@ like in this <a href="https://github.com/jhermann/rituals/blob/master/.env">exam
 the following shows that you need not fear,
 since that function isn't exported to any scripts you run.</p>
 
-<pre><code>(rituals)jhe@workstation:~/src/github/rituals$ bash &lt;&lt;&lt;"pwd; cd $PWD/../time-tunnel; pwd; which python"
+<pre><code>(rituals)jhe@workstation:~/src/github/rituals$ bash &lt;&lt;&lt;"pwd; \
+    cd $PWD/../time-tunnel; pwd; which python"
 /home/jhe/src/github/rituals
 /home/jhe/src/github/time-tunnel
 /home/jhe/src/github/rituals/.venv/rituals/bin/python</code></pre>
 <p>This pretty much restricts the modified <code>cd</code> to interactive use.
 Sub-shells behave differently, again that's what you'd expect working at the prompt.</p>
 
-<pre><code>(rituals)jhe@workstation:~/src/github/rituals$ ( pwd; cd $PWD/../time-tunnel; pwd; which python )
+<pre><code>(rituals)jhe@workstation:~/src/github/rituals$ ( pwd; \
+    cd $PWD/../time-tunnel; pwd; which python )
 /home/jhe/src/github/rituals
 /home/jhe/src/github/time-tunnel
 /home/jhe/src/github/time-tunnel/.venv/time-tunnel/bin/python</code></pre>
