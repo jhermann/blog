@@ -146,13 +146,13 @@ But there is a solution to automate that chore
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Meet-autoenv">Meet <code>autoenv</code><a class="anchor-link" href="#Meet-autoenv">&#182;</a></h2><p>Consider this shell session and especially watch what happens to the prompt.</p>
-<div class="highlight"><pre><span></span><span class="gp">jhe@workstation:~$</span> which python
-<span class="go">/usr/bin/python</span>
-<span class="gp">jhe@workstation:~$</span> <span class="nb">cd</span> src/github/rituals/
-<span class="gp gp-VirtualEnv">(rituals)</span><span class="gp">jhe@workstation:~/src/github/rituals$</span> which python
-<span class="go">/home/jhe/src/github/rituals/.venv/rituals/bin/python</span>
-</pre></div>
+<h2 id="Meet-autoenv">Meet autoenv<a class="anchor-link" href="#Meet-autoenv">&#182;</a></h2><p>Consider this shell session and especially watch what happens to the prompt.</p>
+
+<pre><code>jhe@workstation:~$ which python
+/usr/bin/python
+jhe@workstation:~$ cd src/github/rituals/
+(rituals)jhe@workstation:~/src/github/rituals$ which python
+/home/jhe/src/github/rituals/.venv/rituals/bin/python</code></pre>
 <p><img src="/blog/images/copied_from_nb/img/misc/mind-blown.gif" alt="It&#39;s Magic!" /></p>
 <p>The magic wand was crafted by Kenneth Reitz,
 and can be found on <a href="https://github.com/kennethreitz/autoenv">GitHub</a>.</p>
@@ -162,13 +162,13 @@ and can be found on <a href="https://github.com/kennethreitz/autoenv">GitHub</a>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Installing-autoenv">Installing <code>autoenv</code><a class="anchor-link" href="#Installing-autoenv">&#182;</a></h2><p>To get a working installation, the easiest way is to directly use a git checkout as follows:</p>
-<div class="highlight"><pre><span></span><span class="go">mkdir -p ~/.local</span>
-<span class="go">test -d ~/.local/autoenv \</span>
-<span class="go">    || git clone &quot;https://github.com/kennethreitz/autoenv.git&quot; ~/.local/autoenv</span>
-<span class="go">echo &gt;&gt;~/.bash_aliases &quot;. ~/.local/autoenv/activate.sh&quot;</span>
-<span class="go">. ~/.local/autoenv/activate.sh</span>
-</pre></div>
+<h2 id="Installing-autoenv">Installing autoenv<a class="anchor-link" href="#Installing-autoenv">&#182;</a></h2><p>To get a working installation, the easiest way is to directly use a git checkout as follows:</p>
+
+<pre><code>mkdir -p ~/.local
+test -d ~/.local/autoenv \
+    || git clone "https://github.com/kennethreitz/autoenv.git" ~/.local/autoenv
+echo &gt;&gt;~/.bash_aliases ". ~/.local/autoenv/activate.sh"
+. ~/.local/autoenv/activate.sh</code></pre>
 <p>That's all there is to it. Now you just have to add a <code>.env</code> file to your project,
 like in this <a href="https://github.com/jhermann/rituals/blob/master/.env">example</a>.</p>
 
@@ -180,37 +180,37 @@ like in this <a href="https://github.com/jhermann/rituals/blob/master/.env">exam
 <h2 id="Security-Considerations">Security Considerations<a class="anchor-link" href="#Security-Considerations">&#182;</a></h2><p>If you're afraid that the <code>cd</code> command is wrapped by a bash function,
 the following shows that you need not fear,
 since that function isn't exported to any scripts you run.</p>
-<div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(rituals)</span><span class="gp">jhe@workstation:~/src/github/rituals$</span> bash <span class="o">&lt;&lt;&lt;</span><span class="s2">&quot;pwd; cd </span><span class="nv">$PWD</span><span class="s2">/../time-tunnel; pwd; which python&quot;</span>
-<span class="go">/home/jhe/src/github/rituals</span>
-<span class="go">/home/jhe/src/github/time-tunnel</span>
-<span class="go">/home/jhe/src/github/rituals/.venv/rituals/bin/python</span>
-</pre></div>
+
+<pre><code>(rituals)jhe@workstation:~/src/github/rituals$ bash &lt;&lt;&lt;"pwd; cd $PWD/../time-tunnel; pwd; which python"
+/home/jhe/src/github/rituals
+/home/jhe/src/github/time-tunnel
+/home/jhe/src/github/rituals/.venv/rituals/bin/python</code></pre>
 <p>This pretty much restricts the modified <code>cd</code> to interactive use.
 Sub-shells behave differently, again that's what you'd expect working at the prompt.</p>
-<div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(rituals)</span><span class="gp">jhe@workstation:~/src/github/rituals$</span> <span class="o">(</span> pwd<span class="p">;</span> <span class="nb">cd</span> <span class="nv">$PWD</span>/../time-tunnel<span class="p">;</span> pwd<span class="p">;</span> which python <span class="o">)</span>
-<span class="go">/home/jhe/src/github/rituals</span>
-<span class="go">/home/jhe/src/github/time-tunnel</span>
-<span class="go">/home/jhe/src/github/time-tunnel/.venv/time-tunnel/bin/python</span>
-</pre></div>
+
+<pre><code>(rituals)jhe@workstation:~/src/github/rituals$ ( pwd; cd $PWD/../time-tunnel; pwd; which python )
+/home/jhe/src/github/rituals
+/home/jhe/src/github/time-tunnel
+/home/jhe/src/github/time-tunnel/.venv/time-tunnel/bin/python</code></pre>
 <p>If at any time you need the original command on the prompt, just use <code>command cd …</code> or <code>builtin cd …</code>.</p>
 <p>Also, nobody can inject code into your shell just so, see what happens if we stumble over
 a new or modified <code>.env</code> file the first time:</p>
-<div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(rituals)</span><span class="gp">jhe@workstation:~/src/github/rituals$</span> <span class="nb">cd</span> .
-<span class="gp gp-VirtualEnv">(rituals)</span><span class="gp">jhe@workstation:~/src/github/rituals$</span> <span class="nb">echo</span> &gt;&gt;.env
-<span class="gp gp-VirtualEnv">(rituals)</span><span class="gp">jhe@workstation:~/src/github/rituals$</span> <span class="nb">cd</span> .
-<span class="go">autoenv:</span>
-<span class="go">autoenv: WARNING:</span>
-<span class="go">autoenv: This is the first time you are about to source /home/jhe/src/github/rituals/.env:</span>
-<span class="go">autoenv:</span>
-<span class="go">autoenv:     --- (begin contents) ---------------------------------------</span>
-<span class="go">autoenv:     # autoenv script (https://github.com/kennethreitz/autoenv)</span>
-<span class="go">autoenv:     test \! -f .venv/$(basename $(pwd))/bin/activate || . .venv/$(basename $(pwd))/bin/activate</span>
-<span class="go">autoenv:     </span>
-<span class="go">autoenv:</span>
-<span class="go">autoenv:     --- (end contents) -----------------------------------------</span>
-<span class="go">autoenv:</span>
-<span class="go">autoenv: Are you sure you want to allow this? (y/N) y</span>
-</pre></div>
+
+<pre><code>(rituals)jhe@workstation:~/src/github/rituals$ cd .
+(rituals)jhe@workstation:~/src/github/rituals$ echo &gt;&gt;.env
+(rituals)jhe@workstation:~/src/github/rituals$ cd .
+autoenv:
+autoenv: WARNING:
+autoenv: This is the first time you are about to source /home/jhe/src/github/rituals/.env:
+autoenv:
+autoenv:     --- (begin contents) ---------------------------------------
+autoenv:     # autoenv script (https://github.com/kennethreitz/autoenv)
+autoenv:     test \! -f .venv/$(basename $(pwd))/bin/activate || . .venv/$(basename $(pwd))/bin/activate
+autoenv:     
+autoenv:
+autoenv:     --- (end contents) -----------------------------------------
+autoenv:
+autoenv: Are you sure you want to allow this? (y/N) y</code></pre>
 <p>Now you have all the information to decide whether this is something you'd like to use or not.</p>
 <p>I do, but YMMV. 🤔</p>
 
