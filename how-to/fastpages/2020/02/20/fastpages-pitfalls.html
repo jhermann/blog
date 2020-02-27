@@ -173,13 +173,14 @@
 <a class="anchor" href="#Things-to-Consider" aria-hidden="true"><span class="octicon octicon-link"></span></a>Things to Consider<a class="anchor-link" href="#Things-to-Consider">¶</a>
 </h2>
 <ul>
-<li>
-<strong>Always</strong> quote your title and sub-title. Also quote any tags that are not purely alpha-numerical.</li>
-<li>Categories are hierarchical and become part of the final URL – so give them a reasonable order (from generic to specific), have a consistent scheme for the site as a whole, and do not change them after publishing, otherwise you'll break people's links.</li>
-<li>Do not use today's date in filenames if you plan to publish soonish – timezone differences to the build machines will possibly make your article disappear from the generated index.</li>
-<li>Categories must be listed in a bracketed list – you cannot make it multi-line.</li>
 <li>Isolate the title, subtitle, and metadata into their own cell (the first one).</li>
-<li>Currently, the only way to refer to the same image from metadata <em>and</em> notebook content is to place it in <code>images/</code> and use an absolute GH user content URL in your <code>![](…)</code> markup.</li>
+<li>
+<strong>Always</strong> quote your title and sub-title. Also quote any categories that are not purely alpha-numerical-with-hyphens.</li>
+<li>Categories are hierarchical and become part of the final URL – so give them a reasonable order (from generic to specific), have a consistent scheme for the site as a whole, and do not change them after publishing, otherwise you'll break people's links.</li>
+<li>For dual-use images (referenced in notebook contents <em>and</em> metadata), place the image in the <code>_notebooks</code> folder (or a sub-folder), use the relative path there in your notebook, and <em>prefix</em> that path for the <code>image:</code> attribute with <code>images/copied_from_nb/</code>.</li>
+<li>Categories must be listed in a bracketed list – you cannot make it multi-line.</li>
+<li>Do not use today's date in filenames if you plan to publish soonish – timezone differences to the build machines will possibly make your article disappear from the generated index. <em>(fixed in template)</em>
+</li>
 </ul>
 
 </div>

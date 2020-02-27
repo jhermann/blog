@@ -12,11 +12,11 @@
 <link rel="canonical" href="https://jhermann.github.io/blog/python/deployment/2020/02/26/deadsnakes_on_debian.html" />
 <meta property="og:url" content="https://jhermann.github.io/blog/python/deployment/2020/02/26/deadsnakes_on_debian.html" />
 <meta property="og:site_name" content="Snakes on Callisto" />
-<meta property="og:image" content="https://jhermann.github.io/blog/images/python/python-on-debian.png" />
+<meta property="og:image" content="https://jhermann.github.io/blog/images/copied_from_nb/img/python/python-on-debian.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-02-26T00:00:00-06:00" />
 <script type="application/ld+json">
-{"description":"Python 3.6 / 3.7 / 3.8 Debian packages for both Stretch and Buster","@type":"BlogPosting","headline":"(Dead) Snakes on a… Debian System","dateModified":"2020-02-26T00:00:00-06:00","url":"https://jhermann.github.io/blog/python/deployment/2020/02/26/deadsnakes_on_debian.html","datePublished":"2020-02-26T00:00:00-06:00","image":"https://jhermann.github.io/blog/images/python/python-on-debian.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://jhermann.github.io/blog/python/deployment/2020/02/26/deadsnakes_on_debian.html"},"@context":"https://schema.org"}</script>
+{"description":"Python 3.6 / 3.7 / 3.8 Debian packages for both Stretch and Buster","@type":"BlogPosting","headline":"(Dead) Snakes on a… Debian System","dateModified":"2020-02-26T00:00:00-06:00","url":"https://jhermann.github.io/blog/python/deployment/2020/02/26/deadsnakes_on_debian.html","datePublished":"2020-02-26T00:00:00-06:00","image":"https://jhermann.github.io/blog/images/copied_from_nb/img/python/python-on-debian.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://jhermann.github.io/blog/python/deployment/2020/02/26/deadsnakes_on_debian.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -131,7 +131,7 @@
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="https://raw.githubusercontent.com/jhermann/blog/master/images/python/python-on-debian.png" alt="" /></p>
+<p><img src="/blog/images/copied_from_nb/img/python/python-on-debian.png" alt="" /></p>
 <p>The <a href="https://github.com/deadsnakes">Deadsnakes PPA</a> project originally built older Python releases for Ubuntu, so you could e.g. run unit tests on a new release using a Python version found on older releases (i.e. the ‘dead’ snakes).</p>
 <p>Nowadays, the project also builds <em>newer</em> Python versions ahead of what a certain release offers as its default.</p>
 <p>The packages contain the minor Python version in their name (e.g. <code>python3.6</code>) and can thus be installed concurrently to the default <code>python3</code> ones. Originally based on the Debian source packages, they can also be used on Debian and not just on Ubuntu.</p>
