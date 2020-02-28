@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://jhermann.github.io/blog/how-to/fastpages/2020/02/20/fastpages-pitfalls.html</loc>
+<lastmod>2020-02-20T00:00:00-06:00</lastmod>
+</url>
+<url>
+<loc>https://jhermann.github.io/blog/devops/continuous-delivery/2020/02/25/continuous-delivery.html</loc>
+<lastmod>2020-02-25T00:00:00-06:00</lastmod>
+</url>
+<url>
+<loc>https://jhermann.github.io/blog/python/deployment/2020/02/26/deadsnakes_on_debian.html</loc>
+<lastmod>2020-02-26T00:00:00-06:00</lastmod>
+</url>
+<url>
+<loc>https://jhermann.github.io/blog/tools/automation/2020/02/27/autoenv.html</loc>
+<lastmod>2020-02-27T00:00:00-06:00</lastmod>
+</url>
+<url>
+<loc>https://jhermann.github.io/blog/about/</loc>
+</url>
+<url>
+<loc>https://jhermann.github.io/blog/</loc>
+</url>
+<url>
+<loc>https://jhermann.github.io/blog/search/</loc>
+</url>
+<url>
+<loc>https://jhermann.github.io/blog/categories/</loc>
+</url>
+<url>
+<loc>https://jhermann.github.io/blog/images/copied_from_nb/</loc>
+</url>
+</urlset>
