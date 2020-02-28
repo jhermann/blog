@@ -20,4 +20,5 @@
  * [Writing Blogs With Jupyter](https://github.com/fastai/fastpages#writing-blog-posts-with-jupyter)
  * [Preview Your Blog Locally](DEVELOPMENT.md)
  * [Front-Matter related options](https://github.com/fastai/fastpages#front-matter-related-options)
+   * [Jekyll Front Matter](https://jekyllrb.com/docs/front-matter/)
  * [Twitter card validator](https://cards-dev.twitter.com/validator)
