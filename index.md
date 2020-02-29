@@ -11,6 +11,7 @@ search: exclude
 > “I wondered if there were any [Snakes on Callisto](https://www.goodreads.com/book/show/3880793-lankar-of-callisto), deciding, with justifiable uneasiness, that there probably were.”
 
 🔔 [Atom Feed](https://jhermann.github.io/blog/feed.xml)
+· 👨‍🏫 [Talks & Presentations](https://jhermann.github.io/blog/how-to/know-how/2020/02/22/talks+presentations.html)
 
 
 # Posts
