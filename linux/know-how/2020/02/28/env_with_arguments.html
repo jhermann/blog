@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Shell Scripts: env-shebang with Arguments | Snakes on Callisto</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Shell Scripts: env-shebang with Arguments" />
+<meta name="author" content="Jürgen Hermann" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="What you need to pass arguments to an interpreter found by ‘env’." />
+<meta property="og:description" content="What you need to pass arguments to an interpreter found by ‘env’." />
+<link rel="canonical" href="https://jhermann.github.io/blog/linux/know-how/2020/02/28/env_with_arguments.html" />
+<meta property="og:url" content="https://jhermann.github.io/blog/linux/know-how/2020/02/28/env_with_arguments.html" />
+<meta property="og:site_name" content="Snakes on Callisto" />
+<meta property="og:image" content="https://jhermann.github.io/blog/images/copied_from_nb/img/linux/linux-shell.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-28T00:00:00-06:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jhermann.github.io/blog/linux/know-how/2020/02/28/env_with_arguments.html"},"author":{"@type":"Person","name":"Jürgen Hermann"},"image":"https://jhermann.github.io/blog/images/copied_from_nb/img/linux/linux-shell.png","description":"What you need to pass arguments to an interpreter found by ‘env’.","@type":"BlogPosting","url":"https://jhermann.github.io/blog/linux/know-how/2020/02/28/env_with_arguments.html","headline":"Shell Scripts: env-shebang with Arguments","dateModified":"2020-02-28T00:00:00-06:00","datePublished":"2020-02-28T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/assets/main.css">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://jhermann.github.io/blog/feed.xml" title="Snakes on Callisto" />
+
+  <script>
+  function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+  }
+  window.onload = wrap_img;
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      // add link icon to anchor tags
+      var elem = document.querySelectorAll(".anchor-link")
+      elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+      // remove paragraph tags in rendered toc (happens from notebooks)
+      var toctags = document.querySelectorAll(".toc-entry")
+      toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+  </script>
+</head><body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Snakes on Callisto</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">👤️ About Me</a><a class="page-link" href="/blog/search/">🔎️ Search</a><a class="page-link" href="/blog/categories/">📂️ Categories</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Shell Scripts: env-shebang with Arguments</h1><p class="page-description">What you need to pass arguments to an interpreter found by &#39;env&#39;.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-02-28T00:00:00-06:00" itemprop="datePublished">
+        2020-02-28
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">jhermann</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#linux">linux</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#know-how">know-how</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+<a href="https://github.com/jhermann/blog/tree/master/_notebooks/2020-02-28-env_with_arguments.ipynb" role="button">
+    <img class="notebook-badge-image" src="https://img.shields.io/static/v1?label=&message=View%20On%20GitHub&color=586069&logo=github&labelColor=2f363d">
+</a>
+</div><div class="px-2">
+    <a href="https://colab.research.google.com/github/jhermann/blog/blob/master/_notebooks/2020-02-28-env_with_arguments.ipynb">
+        <img class="notebook-badge-image" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-02-28-env_with_arguments.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/blog/images/copied_from_nb/img/linux/linux-shell.png" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-Problem">The Problem<a class="anchor-link" href="#The-Problem">&#182;</a></h2><p>There is an old annoyance that, if you use <code>env</code> in a bang path to search the script interpreter in the shell's path, you cannot pass any arguments to it. Instead, all the text after the call to <code>env</code> is passed as one single argument, and <code>env</code> tries to find this as the executable to invoke, which fails of course when arguments are present.</p>
+<p><code>env</code> is not the culprit here, but the very definition of how a bang path works (quoted from the <code>bash</code> manpage):</p>
+<blockquote><p>If  the  program  is a file beginning with <code>#!</code>, the remainder of the first line specifies an interpreter for the program.
+The shell executes the specified interpreter on operating systems that do not handle this executable format  themselves.
+The  <strong>arguments to the interpreter consist of a <em>single</em> optional argument</strong> following the interpreter name on the first line…  <em>(emphasis mine)</em></p>
+</blockquote>
+<p>So what env gets to see in its <code>argv</code> array when you write something like <code>#! /usr/bin/env python3 -I -S</code> is <code>['/usr/bin/env', 'python3 -I -S']</code>. And there is no <code>python3 -I -S</code> anywhere to be found that could interpret your script. 😞</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-Solution">The Solution<a class="anchor-link" href="#The-Solution">&#182;</a></h2><p>The <code>env</code> command in coreutils 8.30 solves this (i.e. Debian Buster only so far, Ubuntu Bionic still has 8.28). The relevant change is introducing a split option (<code>-S</code>), designed to handle that special case of getting all arguments mushed together into one.</p>
+<p>In the example below, we want to pass the <code>-I -S</code> options to Python on startup. They increase security of a script, by reducing the possible ways an attacker can insert their malicious code into your runtime environment, as you can see from the help text:</p>
+
+<pre><code>-I     : isolate Python from the user's environment (implies -E and -s)
+-E     : ignore PYTHON* environment variables (such as PYTHONPATH)
+-s     : don't add user site directory to sys.path; also PYTHONNOUSERSITE
+-S     : don't imply 'import site' on initialization</code></pre>
+<p>You can try the following yourself using <code>docker run --rm -it --entrypoint /bin/bash python:3-slim-buster</code>):</p>
+<div class="highlight"><pre><span></span><span class="gp">$</span> cat &gt;&gt;isolated &lt;&lt;<span class="s1">&#39;.&#39;</span>
+<span class="gp">#</span>!/usr/bin/env -S python3 -I -S
+<span class="go">import sys</span>
+<span class="go">print(&#39;\n&#39;.join(sys.path))</span>
+<span class="go">.</span>
+<span class="gp">$</span> chmod +x isolated
+<span class="gp">$</span> ./isolated
+<span class="go">/usr/local/lib/python38.zip</span>
+<span class="go">/usr/local/lib/python3.8</span>
+<span class="go">/usr/local/lib/python3.8/lib-dynload</span>
+</pre></div>
+<p>Normally, the Python path would include both the current working directory (<code>/</code> in this case) as well as site packages (<code>/usr/local/lib/python3.8/site-packages</code>).</p>
+<p>However, we prevented their inclusion as a source of unanticipated code – and you can be a happy cat again. 😻</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jhermann/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/linux/know-how/2020/02/28/env_with_arguments.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Snakes on Callisto</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Snakes on Callisto</li><li><a class="u-email" href="mailto:jh@web.de">jh@web.de</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
+  <li><a href="https://github.com/jhermann"><svg class="social svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jhermann</span></a></li><li><a href="https://www.twitter.com/jhermann_"><svg class="social svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jhermann_</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Python · Jupyter(Hub) · DevSecOps · Software Architecture · Systems Design · Distributed Systems</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
