@@ -161,7 +161,7 @@ The  <strong>arguments to the interpreter consist of a <em>single</em> optional 
 -E     : ignore PYTHON* environment variables (such as PYTHONPATH)
 -s     : don't add user site directory to sys.path; also PYTHONNOUSERSITE
 -S     : don't imply 'import site' on initialization</code></pre>
-<p>You can try the following yourself using <code>docker run --rm -it --entrypoint /bin/bash python:3-slim-buster</code>):</p>
+<p>You can try the following yourself using <code>docker run --rm -it --entrypoint /bin/bash python:3-slim-buster</code>:</p>
 <div class="highlight"><pre><span></span><span class="gp">$</span> cat &gt;&gt;isolated &lt;&lt;<span class="s1">&#39;.&#39;</span>
 <span class="gp">#</span>!/usr/bin/env -S python3 -I -S
 <span class="go">import sys</span>
