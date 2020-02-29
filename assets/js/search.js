@@ -8,7 +8,7 @@ var documents = [{
     "id": 1,
     "url": "https://jhermann.github.io/about/",
     "title": "👤️ About Me",
-    "body": "📝 Jürgen Hermann · 📧 jh@web. de 🐍 A long long time ago, I started with Python 1. 5 at web. de,founded the MoinMoin wiki project shortly thereafter, and am nowenjoying the increased traction that Python recently gets fromdata science and machine learning.  This website is powered by fastpages "
+    "body": "📝 Jürgen Hermann · 📧 jh@web. de · 👨‍🏫 Talks &amp; Presentations 🐍 A long long time ago, I started with Python 1. 5 at web. de,founded the MoinMoin wiki project shortly thereafter, and am nowenjoying the increased traction that Python recently gets fromdata science and machine learning.  This website is powered by fastpages "
     }, {
     "id": 2,
     "url": "https://jhermann.github.io/categories/",
