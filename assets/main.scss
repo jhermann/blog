@@ -361,6 +361,14 @@ h6:hover .anchor-link {
     display: none;
 }
 
+.highlight .err, .highlight .g, .highlight .l, .highlight .n, .highlight .x,
+.highlight .ge, .highlight .gr, .highlight .gh, .highlight .gi, .highlight .gp,
+.highlight .gs, .highlight .gu, .highlight .gt, .highlight .ld, .highlight .no,
+.highlight .nd, .highlight .pi, .highlight .ni, .highlight .ne, .highlight .nn,
+.highlight .nx, .highlight .py, .highlight .w, .highlight .bp {
+    color: #3a3;
+}
+
 // * image-preview class should be on the containing div!
 // * the divs below post-list should have class="post-item"!
 /*
