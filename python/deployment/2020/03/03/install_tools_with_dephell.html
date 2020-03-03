@@ -161,7 +161,9 @@
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Going-into-&#8216;jail&#8217;">Going into &#8216;jail&#8217;<a class="anchor-link" href="#Going-into-&#8216;jail&#8217;">&#182;</a></h2><p>As already mentioned, this post will take a deeper look into the <code>dephell jail</code> sub-command for venv management. Unlike <code>pipsi</code>, the former go-to tool for that purpose, it is maintained, supports full life-cycle management (i.e. it has a way to remove tool installations), and also supports projects that have several console entry points (i.e. expose more than one command). I also like it a lot more than <code>pipx</code>, which has a similar feature profile when compared to just dephell's <code>jail</code> sub-command, but YMMV.</p>
+<h2 id="Going-into-&#8216;jail&#8217;">Going into &#8216;jail&#8217;<a class="anchor-link" href="#Going-into-&#8216;jail&#8217;">&#182;</a></h2><p>As already mentioned, this post will take a deeper look into the <code>dephell jail</code> sub-command for venv management.</p>
+<p>Unlike <code>pipsi</code>, the former go-to tool for that purpose, it is maintained, supports full life-cycle management (i.e. it has a way to remove tool installations), and also supports projects that have several console entry points (i.e. expose more than one command).</p>
+<p>I also like it a lot more than <code>pipx</code>, which has a similar feature profile when compared to just dephell's <code>jail</code> sub-command, but YMMV.</p>
 <p>As a first example, to get rid of <code>dephell</code> again, just remove it using itself:</p>
 
 <pre><code>dephell jail remove dephell
@@ -175,7 +177,7 @@ shiv --version
 
 </code></pre>
 <p>Make sure that <code>~/.local/bin</code> is in your <code>PATH</code>, which is not always the case on older GNU/Linux releases.</p>
-<p>You can always list what you have installed:</p>
+<p>You can easily list what you have installed:</p>
 
 <pre><code>$ dephell jail list
 {
