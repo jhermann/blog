@@ -13,4 +13,4 @@ enjoying the increased traction that Python recently gets from
 data science and machine learning.
 
 
-> This website is powered by *[fastpages](https://github.com/fastai/fastpages)*
+> This blog is powered by *[fastpages](https://github.com/fastai/fastpages)*
