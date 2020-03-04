@@ -1,4 +1,5 @@
 /** Reset some basic elements */
+@import url(custom.css);
 body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; padding: 0; }
 
 /** Basic styling */
@@ -288,11 +289,3 @@ h1:hover .anchor-link, h2:hover .anchor-link, h3:hover .anchor-link, h4:hover .a
 .lunrsearchresult a:hover, .lunrsearchresult a:focus { text-decoration: none; }
 
 .lunrsearchresult a:hover .title { text-decoration: underline; }
-
-.footer-heading { display: none; }
-
-.highlight .err, .highlight .g, .highlight .l, .highlight .n, .highlight .x, .highlight .ge, .highlight .gr, .highlight .gh, .highlight .gi, .highlight .gp, .highlight .gs, .highlight .gu, .highlight .gt, .highlight .ld, .highlight .no, .highlight .nd, .highlight .pi, .highlight .ni, .highlight .ne, .highlight .nn, .highlight .nx, .highlight .py, .highlight .w, .highlight .bp { color: #3a3; }
-
-.post-content p, .post-content li { color: black; }
-
-/* .p-3 { min-height: 150px; } .p-3 li { padding-left: 135px; } .Subhead { display: inline; position: absolute; } .image-preview { max-width: 120px; float: left; } */
