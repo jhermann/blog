@@ -63,7 +63,7 @@ var documents = [{
     "id": 12,
     "url": "https://jhermann.github.io/misc/development/2020/02/21/projects_guided_tour.html",
     "title": "A Guided Tour of My Projects",
-    "body": "2020/02/21 -           🚧 This article is work in progress, and will be updated regularly with new content.  For Python Developers : The Springerle GitHub organization is a collection of cookiecutter project templates, with templates for single-file scripts (py-minimal-script), fully equipped packages and applications (py-generic-project), Debian-packaging of existing projects (dh-virtualenv-mold · debianized-pypi-mold), and more. Miscellaneous : The README of awesome-python-talks is an opinionated list of videos related to Python, with a focus on training and gaining hands-on experience. The awesome-tech-talks reposiotry is very similar, but with a different scope of software development and general IT topics. "
+    "body": "2020/02/21 -           🚧 This article is work in progress, and will be updated regularly with new content.  For Python Developers : The Springerle GitHub organization is a collection of cookiecutter project templates, with templates for single-file scripts (py-minimal-script), fully equipped packages and applications (py-generic-project), Debian-packaging of existing projects (dh-virtualenv-mold · debianized-pypi-mold), and more. Miscellaneous : The README of awesome-python-talks is an opinionated list of videos related to Python, with a focus on training and gaining hands-on experience. The awesome-tech-talks repository is very similar, but about software development and general IT topics. "
     }, {
     "id": 13,
     "url": "https://jhermann.github.io/how-to/fastpages/2020/02/20/fastpages-pitfalls.html",
