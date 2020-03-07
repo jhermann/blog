@@ -12,6 +12,7 @@ search: exclude
 
 🔔 [Atom Feed](https://jhermann.github.io/blog/feed.xml)
 · 👨‍🏫 [Talks & Presentations](https://jhermann.github.io/blog/how-to/know-how/2020/02/22/talks+presentations.html)
+· 🧩 [My (Software) Projects](https://jhermann.github.io/blog/misc/development/2020/02/21/projects_guided_tour.html)
 
 
 # Posts
