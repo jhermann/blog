@@ -14,6 +14,10 @@
    color: black;
 }
 
+h1, h2, h3, h4, h5 {
+    color: #115;
+}
+
 // * image-preview class should be on the containing div!
 // * the divs below post-list should have class="post-item"!
 /*
