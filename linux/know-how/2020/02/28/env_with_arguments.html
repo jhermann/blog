@@ -143,7 +143,7 @@
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Problem">The Problem<a class="anchor-link" href="#The-Problem">&#182;</a></h2><p>There is an old annoyance that, if you use <code>env</code> in a bang path to search the script interpreter in the shell's path, you cannot pass any arguments to it. Instead, all the text after the call to <code>env</code> is passed as one single argument, and <code>env</code> tries to find this as the executable to invoke, which fails of course when arguments are present.</p>
+<h2 id="The-Problem">The Problem<a class="anchor-link" href="#The-Problem"> </a></h2><p>There is an old annoyance that, if you use <code>env</code> in a bang path to search the script interpreter in the shell's path, you cannot pass any arguments to it. Instead, all the text after the call to <code>env</code> is passed as one single argument, and <code>env</code> tries to find this as the executable to invoke, which fails of course when arguments are present.</p>
 <p><code>env</code> is not the culprit here, but the very definition of how a bang path works (quoted from the <code>bash</code> manpage):</p>
 <blockquote><p>If  the  program  is a file beginning with <code>#!</code>, the remainder of the first line specifies an interpreter for the program.
 The shell executes the specified interpreter on operating systems that do not handle this executable format  themselves.
@@ -156,7 +156,7 @@ The  <strong>arguments to the interpreter consist of a <em>single</em> optional 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Solution">The Solution<a class="anchor-link" href="#The-Solution">&#182;</a></h2><p>The <code>env</code> command in coreutils 8.30 solves this (i.e. Debian Buster only so far, Ubuntu Bionic still has 8.28). The relevant change is introducing a split option (<code>-S</code>), designed to handle that special case of getting all arguments mushed together into one.</p>
+<h2 id="The-Solution">The Solution<a class="anchor-link" href="#The-Solution"> </a></h2><p>The <code>env</code> command in coreutils 8.30 solves this (i.e. Debian Buster only so far, Ubuntu Bionic still has 8.28). The relevant change is introducing a split option (<code>-S</code>), designed to handle that special case of getting all arguments mushed together into one.</p>
 <p>In the example below, we want to pass the <code>-I -S</code> options to Python on startup. They increase security of a script, by reducing the possible ways an attacker can insert their malicious code into your runtime environment, as you can see from the help text:</p>
 
 <pre><code>-I     : isolate Python from the user's environment (implies -E and -s)

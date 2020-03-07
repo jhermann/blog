@@ -143,7 +143,7 @@
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zipapps-in-a-Nutshell">Zipapps in a Nutshell<a class="anchor-link" href="#Zipapps-in-a-Nutshell">&#182;</a></h2><p>Zipapps are a way to distribute Python applications
+<h2 id="Zipapps-in-a-Nutshell">Zipapps in a Nutshell<a class="anchor-link" href="#Zipapps-in-a-Nutshell"> </a></h2><p>Zipapps are a way to distribute Python applications
 and all of their dependencies in a single binary file.
 This is comparable to statically linked golang apps or Java's ‘executable JARs’. 
 Their main advantage is that distributing and installing them is quite simple.</p>
@@ -173,7 +173,7 @@ py -3.8 foo.pyz …    # Windows
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Setting-Up-Windows-10-for-Zipapps">Setting Up Windows 10 for Zipapps<a class="anchor-link" href="#Setting-Up-Windows-10-for-Zipapps">&#182;</a></h2><p>On Windows, because there is no ‘+x’ flag, things are a bit more complicated than on POSIX.
+<h2 id="Setting-Up-Windows-10-for-Zipapps">Setting Up Windows 10 for Zipapps<a class="anchor-link" href="#Setting-Up-Windows-10-for-Zipapps"> </a></h2><p>On Windows, because there is no ‘+x’ flag, things are a bit more complicated than on POSIX.
 Zipapps <strong>MUST</strong> have a <code>.pyz</code> extension,
 for which the <code>py</code> launcher is registered as the default application.
 The net effect is that such files become executable and are handed over to the launcher
@@ -207,7 +207,7 @@ shiv --version</code></pre>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Variations">Variations<a class="anchor-link" href="#Variations">&#182;</a></h2><p>If that makes more sense to you, you can change the system-wide
+<h2 id="Variations">Variations<a class="anchor-link" href="#Variations"> </a></h2><p>If that makes more sense to you, you can change the system-wide
 variables instead of the user-specific ones, and choose paths that are
 global for all users (like <code>C:\usr\bin</code> or similar).</p>
 <p>To make zipapps available network-wide, you can use <code>%APPDATA%</code> to store the zipapps,

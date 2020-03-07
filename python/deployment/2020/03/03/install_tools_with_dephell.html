@@ -143,14 +143,14 @@
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>‘dephell’ is a useful add-on tool for project and venv management that works with existing standard tooling, instead of doing a bad <em>replacement</em> job like so many others. This post takes a look at how it can take over from <code>pipsi</code> (Python Script Installer, which is unmaintained) to manage <em>isolated</em> tool installations by providing each tool with its own virtual environment.</p>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>‘dephell’ is a useful add-on tool for project and venv management that works with existing standard tooling, instead of doing a bad <em>replacement</em> job like so many others. This post takes a look at how it can take over from <code>pipsi</code> (Python Script Installer, which is unmaintained) to manage <em>isolated</em> tool installations by providing each tool with its own virtual environment.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Installation">Installation<a class="anchor-link" href="#Installation">&#182;</a></h2><p>Dephell is installed via a Python installer script into its own venv (compatible to what <code>dephell</code> itself creates as a so-called ‘jail’).</p>
+<h2 id="Installation">Installation<a class="anchor-link" href="#Installation"> </a></h2><p>Dephell is installed via a Python installer script into its own venv (compatible to what <code>dephell</code> itself creates as a so-called ‘jail’).</p>
 
 <pre><code>curl -L dephell.org/install | python3
 
@@ -163,7 +163,7 @@
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Going-into-&#8216;jail&#8217;">Going into &#8216;jail&#8217;<a class="anchor-link" href="#Going-into-&#8216;jail&#8217;">&#182;</a></h2><p>As already mentioned, this post will take a deeper look into the <code>dephell jail</code> sub-command for venv management.</p>
+<h2 id="Going-into-&#8216;jail&#8217;">Going into &#8216;jail&#8217;<a class="anchor-link" href="#Going-into-&#8216;jail&#8217;"> </a></h2><p>As already mentioned, this post will take a deeper look into the <code>dephell jail</code> sub-command for venv management.</p>
 <p>Unlike <code>pipsi</code>, the former go-to tool for that purpose, it is maintained, supports full life-cycle management (i.e. it has a way to remove tool installations), and also supports projects that have several console entry points (i.e. expose more than one command).</p>
 <p>I also like it a lot more than <code>pipx</code>, which has a similar feature profile when compared to just dephell's <code>jail</code> sub-command, but YMMV.</p>
 <p>As a first example, to get rid of <code>dephell</code> again, just remove it using itself:</p>
@@ -223,7 +223,7 @@ pip 20.0.2 from /tmp/tmpnm5gvieo/lib/python3.6/site-packages/pip (python 3.6)</c
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beyond-&#8216;jail&#8217;">Beyond &#8216;jail&#8217;<a class="anchor-link" href="#Beyond-&#8216;jail&#8217;">&#182;</a></h2><p>Besides <code>jail</code>, there are lots of other sub-commands for dependency management, handling docker images, creating common Python software project files, managing and vendoring your project's dependencies, and handling of project-specific venvs. See the full <a href="https://dephell.readthedocs.io/">DepHell documentation</a> for details on that.</p>
+<h2 id="Beyond-&#8216;jail&#8217;">Beyond &#8216;jail&#8217;<a class="anchor-link" href="#Beyond-&#8216;jail&#8217;"> </a></h2><p>Besides <code>jail</code>, there are lots of other sub-commands for dependency management, handling docker images, creating common Python software project files, managing and vendoring your project's dependencies, and handling of project-specific venvs. See the full <a href="https://dephell.readthedocs.io/">DepHell documentation</a> for details on that.</p>
 
 </div>
 </div>
