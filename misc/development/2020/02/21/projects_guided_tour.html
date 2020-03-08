@@ -108,6 +108,7 @@
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#For-Python-Developers">For Python Developers </a></li>
+<li class="toc-entry toc-h2"><a href="#Debian-Packages">Debian Packages </a></li>
 <li class="toc-entry toc-h2"><a href="#Miscellaneous">Miscellaneous </a></li>
 </ul><!--
 #################################################
@@ -150,6 +151,28 @@
 <a class="anchor" href="#For-Python-Developers" aria-hidden="true"><span class="octicon octicon-link"></span></a>For Python Developers<a class="anchor-link" href="#For-Python-Developers"> </a>
 </h2>
 <p>The <a href="https://github.com/Springerle">Springerle</a> GitHub organization is a collection of <a href="https://github.com/cookiecutter">cookiecutter project templates</a>, with templates for single-file scripts (<a href="https://github.com/Springerle/py-minimal-script">py-minimal-script</a>), fully equipped packages and applications (<a href="https://github.com/Springerle/py-generic-project">py-generic-project</a>), Debian-packaging of existing projects (<a href="https://github.com/Springerle/dh-virtualenv-mold">dh-virtualenv-mold</a> · <a href="https://github.com/Springerle/debianized-pypi-mold">debianized-pypi-mold</a>), and more.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Debian-Packages">
+<a class="anchor" href="#Debian-Packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Debian Packages<a class="anchor-link" href="#Debian-Packages"> </a>
+</h2>
+<p>I'm a contributor to <a href="https://github.com/spotify/dh-virtualenv">dh-virtualenv</a>, and I use it for all my Debian packaging needs. Especially when it comes to deploying applications with lots of dependencies, or services needing tight integration with the host (i.e. systemd units). For pure command line tools, <a href="https://github.com/pantsbuild/pex">pex</a> and <a href="https://github.com/linkedin/shiv">shiv</a> can be a better alternative.</p>
+<p>There are several projects using <em>dh-virtualenv</em> as the basic packaging tool:</p>
+<ul>
+<li>
+<a href="https://github.com/1and1/debianized-jupyterhub">1and1/debianized-jupyterhub</a> packages  JupyterHub, a multi-user server for Jupyter notebooks, It also comes with a Python3 kernel, populated with an extensive data science stack.</li>
+<li>
+<a href="https://github.com/1and1/debianized-sentry">1and1/debianized-sentry</a> puts all <em>sentry.io</em> 9.x services into one package using systemd as a supervisor, you just need to add a PostgreSQL databasse.</li>
+<li>
+<a href="https://github.com/jhermann/devpi-enterprisey/tree/master/debianized-devpi">devpi-enterprisey/debianized-devpi</a> allows easy deployment of the <em>devpi</em> package repository and proxy. This doesn't get updated that often, it basically chugs along silently on my workstations, speeding up virtualenv creation and allowing off-line work.</li>
+</ul>
+<p>Note that these are typically <a href="https://dockyard.readthedocs.io/en/latest/packaging-howto.html#dpkg-in-docker">built in a Docker container</a>. See the <a href="https://jhermann.github.io/blog/misc/development/2020/02/21/projects_guided_tour.html#For-Python-Developers">For Python Developers</a> section on how to easily roll your own projects of this type.</p>
+<p>Also check out <a href="https://jhermann.github.io/blog/python/deployment/2020/02/26/deadsnakes_on_debian.html">(Dead) Snakes on a… Debian System</a> for being able to install newer Python versions on all major Debian-like releases.</p>
 
 </div>
 </div>
