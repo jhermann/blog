@@ -86,7 +86,7 @@
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      3 min read
     
 </span></p>
 
@@ -108,6 +108,8 @@
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#For-Python-Developers">For Python Developers </a></li>
+<li class="toc-entry toc-h2"><a href="#Data-Science-&-Jupyter">Data Science &amp; Jupyter </a></li>
+<li class="toc-entry toc-h2"><a href="#Software-Design-&-Architecture">Software Design &amp; Architecture </a></li>
 <li class="toc-entry toc-h2"><a href="#Debian-Packages">Debian Packages </a></li>
 <li class="toc-entry toc-h2"><a href="#Docker-&-Kubernetes">Docker &amp; Kubernetes </a></li>
 <li class="toc-entry toc-h2"><a href="#Miscellaneous">Miscellaneous </a></li>
@@ -160,6 +162,30 @@
 </ul>
 <p>Fundamental elements for any Python project, like configuration handling, are in the <a href="https://github.com/jhermann/rudiments">rudiments</a> package It is used for runtime support in the <em>Springerle</em> templates mentioned above.</p>
 <p>On the project automation side of things, <a href="https://github.com/jhermann/rituals">rituals</a> is a library of <em>Invoke</em> tasks that are needed again and again. The <em>Springerle</em> templates use it to add management tasks that are updateable via <code>pip</code>, independently of the template.</p>
+<p><a href="https://github.com/jhermann/dependency-check-py">dependency-check-py</a> is a shim to easily install <a href="https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html">OWASP dependency-check-cli</a> into Python projects, by adding it to your requirements.</p>
+<p>The collection of Jupyter notebooks in <a href="https://github.com/jhermann/whats-new-in-python3">whats-new-in-python3</a> summarize the <em>“What's new in Python3?”</em> documentation, with live code in the notebooks. Right now, it is unfinished and work in progress.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Science-&amp;-Jupyter">
+<a class="anchor" href="#Data-Science-&amp;-Jupyter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Science &amp; Jupyter<a class="anchor-link" href="#Data-Science-&amp;-Jupyter"> </a>
+</h2>
+<p><a href="https://github.com/jhermann/jupyter-by-example">jupyter-by-example</a> has learning resources and practical tips on how to use Jupyter notebooks for fun &amp; profit. The <a href="https://github.com/jhermann/til-about-data-science/wiki#today-i-learned-about-data-science">Today I Learned about Data Science…</a> wiki contains similar information, with an extended scope (beyond Jupyter).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Software-Design-&amp;-Architecture">
+<a class="anchor" href="#Software-Design-&amp;-Architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a>Software Design &amp; Architecture<a class="anchor-link" href="#Software-Design-&amp;-Architecture"> </a>
+</h2>
+<p>In <a href="https://github.com/1and1/c4-notation">c4-notation</a> I collect technical resources about using the C4 model for visualizing software architecture. This is so far rather small and unfinished. See also my <a href="https://github.com/jhermann/jhermann.github.io/wiki/Diagrams-as-Code">Diagrams as Code</a> wiki page for similar resources.</p>
 
 </div>
 </div>
@@ -180,7 +206,8 @@
 <li>
 <a href="https://github.com/jhermann/devpi-enterprisey/tree/master/debianized-devpi">devpi-enterprisey/debianized-devpi</a> allows easy deployment of the <em>devpi</em> package repository and proxy. This doesn't get updated that often, it basically chugs along silently on my workstations, speeding up virtualenv creation and allowing off-line work.</li>
 </ul>
-<p>Note that these are typically <a href="https://dockyard.readthedocs.io/en/latest/packaging-howto.html#dpkg-in-docker">built in a Docker container</a>. See the <a href="https://jhermann.github.io/blog/misc/development/2020/02/21/projects_guided_tour.html#For-Python-Developers">For Python Developers</a> section on how to easily roll your own projects of this type.</p>
+<p>Note that these are typically <a href="https://dockyard.readthedocs.io/en/latest/packaging-howto.html#dpkg-in-docker">built in a Docker container</a>.</p>
+<p>See the <a href="https://jhermann.github.io/blog/misc/development/2020/02/21/projects_guided_tour.html#For-Python-Developers">For Python Developers</a> section on how to easily roll your own projects of this type. The <a href="https://github.com/jhermann/artifactory-debian/tree/master/dput-webdav#readme">dput-webdav plugin</a> then allows you to use <code>dput</code> to comfortably upload created packages to a WebDAV repository like Artifactory (BinTray).</p>
 <p>Also check out <a href="https://jhermann.github.io/blog/python/deployment/2020/02/26/deadsnakes_on_debian.html">(Dead) Snakes on a… Debian System</a> for being able to install newer Python versions on all major Debian-like releases.</p>
 
 </div>
@@ -204,6 +231,8 @@
 <a class="anchor" href="#Miscellaneous" aria-hidden="true"><span class="octicon octicon-link"></span></a>Miscellaneous<a class="anchor-link" href="#Miscellaneous"> </a>
 </h2>
 <p>The README of <a href="https://github.com/jhermann/awesome-python-talks">awesome-python-talks</a> is an opinionated list of videos related to Python, with a focus on training and gaining hands-on experience. The <a href="https://github.com/1and1/awesome-tech-talks">awesome-tech-talks</a> repository is very similar, but about software development and general IT topics.</p>
+<p><a href="https://github.com/1and1/confluencer">confluencer</a> contains a CLI tool that automates common <em>Atlassian Confluence</em> maintenance tasks and content publishing.</p>
+<p>There's no place like home… <a href="https://github.com/jhermann/ruby-slippers">ruby-slippers</a> is my dotfiles repository (and I found “dotfiles” way too boring as a name). It also includes setup scripts for installing a bunch of developer tools and packages.</p>
 
 </div>
 </div>
