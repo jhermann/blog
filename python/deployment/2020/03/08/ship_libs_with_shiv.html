@@ -156,7 +156,8 @@
 <p>So, to create your base library release artifact, install and call <a href="https://github.com/linkedin/shiv">shiv</a> like this:</p>
 
 <pre><code>python3.8 -m pip install --user shiv
-python3.8 -m shiv -p '/usr/bin/python3.8 -IS' -o ~/bin/_lib-pandas pandas==1.0.1
+python3.8 -m shiv -p '/usr/bin/python3.8 -IS' \
+                  -o ~/bin/_lib-pandas pandas==1.0.1
 
 </code></pre>
 <p>Do this in a virtualenv and leave out the <code>--user</code> option if you want to keep your account's home directory clean.</p>
