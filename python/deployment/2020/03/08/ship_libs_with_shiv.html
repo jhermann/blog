@@ -143,7 +143,7 @@
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Basic-Idea">The Basic Idea<a class="anchor-link" href="#The-Basic-Idea"> </a></h2><p>If you have a set of Python scripts that are all using the same set of required packages, you can distribute those dependencies in the form of a zipapp, i.e. in a single executable file. See <a href="https://py-generic-project.readthedocs.io/en/latest/packaging.html#build-zipapps">Building Zipapps (PEP 441)</a> for details if you're new to the concept of zipped.Python application bundles</p>
+<h2 id="The-Basic-Idea">The Basic Idea<a class="anchor-link" href="#The-Basic-Idea"> </a></h2><p>If you have a set of Python scripts that are all using the same set of required packages, you can distribute those dependencies in the form of a zipapp, i.e. in a single executable file. See <a href="https://py-generic-project.readthedocs.io/en/latest/packaging.html#build-zipapps">Building Zipapps (PEP 441)</a> for details if you're new to the concept of zipped Python application bundles</p>
 <p>Unlike shipping a script in a virtualenv built within a single project, you can have a project for the base libraries and other projects for the scripts, including scripts written by end users who are just using your dependencies.</p>
 <p>You can also deploy any <em>PyPI</em> package that way, with a simple call of <code>shiv</code>, as shown in the next section using <em>Pandas</em>.</p>
 
@@ -195,7 +195,7 @@ Python path:
 
 </code></pre>
 <p>If you're familiar with Pandas, you'll instantly recognize the Python path output as coming from a Pandas data frame. 🎉</p>
-<p>This first execution is a bit slow on startup, because the cache directory you see at the end of the Python path has to be populated first. shiv's bootstrapping code unpacks extensions packages into the file system, so the OS can load them.</p>
+<p>This first execution is a bit slow on startup, because the cache directory you see at the end of the Python path has to be populated first. shiv's boot-strapping code unpacks extension packages containing native code into the file system, so the OS can load them.</p>
 <p>The underscore prefix in the zipapp name indicates this is not a command humans would normally use. Alternatively and especially in production you can deploy into e.g. <code>/usr/local/lib/python3.8/</code> and then use an absolute path instead of an <code>env</code> call as the script's interpreter.</p>
 
 </div>
