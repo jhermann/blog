@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Packaging Software with ‘fpm’ | Snakes on Callisto</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Packaging Software with ‘fpm’" />
+<meta name="author" content="Jürgen Hermann" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="fpm (eFfing Package Management) enables you to build all sorts of Linux packages with great ease and sanity." />
+<meta property="og:description" content="fpm (eFfing Package Management) enables you to build all sorts of Linux packages with great ease and sanity." />
+<link rel="canonical" href="https://jhermann.github.io/blog/linux/deployment/2020/03/14/fpm_effing_package_managers.html" />
+<meta property="og:url" content="https://jhermann.github.io/blog/linux/deployment/2020/03/14/fpm_effing_package_managers.html" />
+<meta property="og:site_name" content="Snakes on Callisto" />
+<meta property="og:image" content="https://jhermann.github.io/blog/images/copied_from_nb/img/linux/fpm.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-14T00:00:00-05:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jhermann.github.io/blog/linux/deployment/2020/03/14/fpm_effing_package_managers.html"},"author":{"@type":"Person","name":"Jürgen Hermann"},"image":"https://jhermann.github.io/blog/images/copied_from_nb/img/linux/fpm.png","description":"fpm (eFfing Package Management) enables you to build all sorts of Linux packages with great ease and sanity.","@type":"BlogPosting","url":"https://jhermann.github.io/blog/linux/deployment/2020/03/14/fpm_effing_package_managers.html","headline":"Packaging Software with ‘fpm’","dateModified":"2020-03-14T00:00:00-05:00","datePublished":"2020-03-14T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/assets/main.css">
+  <link rel="stylesheet" href="/blog/assets/custom.css">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://jhermann.github.io/blog/feed.xml" title="Snakes on Callisto" />
+
+  <script>
+  function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+  }
+  window.onload = wrap_img;
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      // add link icon to anchor tags
+      var elem = document.querySelectorAll(".anchor-link")
+      elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+      // remove paragraph tags in rendered toc (happens from notebooks)
+      var toctags = document.querySelectorAll(".toc-entry")
+      toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Snakes on Callisto</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">👤️ About Me</a><a class="page-link" href="/blog/search/">🔎️ Search</a><a class="page-link" href="/blog/categories/">📂️ Categories</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Packaging Software with ‘fpm’</h1><p class="page-description">fpm (eFfing Package Management) enables you to build all sorts of Linux packages with great ease and sanity.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-14T00:00:00-05:00" itemprop="datePublished">
+        2020-03-14
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">jhermann</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#linux">linux</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#deployment">deployment</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+<a href="https://github.com/jhermann/blog/tree/master/_notebooks/2020-03-14-fpm_effing_package_managers.ipynb" role="button">
+    <img class="notebook-badge-image" src="https://img.shields.io/static/v1?label=&message=View%20On%20GitHub&color=586069&logo=github&labelColor=2f363d">
+</a>
+</div><div class="px-2">
+    <a href="https://colab.research.google.com/github/jhermann/blog/blob/master/_notebooks/2020-03-14-fpm_effing_package_managers.ipynb">
+        <img class="notebook-badge-image" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-03-14-fpm_effing_package_managers.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/blog/images/copied_from_nb/img/linux/fpm.png" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-it-does">What it does<a class="anchor-link" href="#What-it-does"> </a></h2><p>Basically, ‘fpm’ allows you to deploy any software via OS packages,
+from an installation tree on disk or from already built artifacts specific to
+the chosen implementation language.</p>
+<p>The main advantage over native tooling is you do not need to know
+about every minute detail of the involved commands and metafile formats
+for every platform.
+In case of Debian, that is at least the “control” and “rules” files,
+and tools like “buildpackage” and “debhelpers”.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-to-install-it">How to install it<a class="anchor-link" href="#How-to-install-it"> </a></h2><p>‘fpm’ is written in Ruby and can thus be installed via <code>gem install</code>.
+But you can also run it with JRuby in a JVM,
+that you might happen to already have on a host anyway.
+Using JRuny spares you the headache of juggling multiple Ruby versions
+and isolating gems against other Ruby applications.</p>
+<p>If you package it up that way, it also can be installed on any Linux release
+because you only need a Java8 JRE installed to run it
+– no native code involved. 
+You can use the <code>fpm.sh</code> script in the
+<a href="https://github.com/jhermann/priscilla">priscilla</a> project on GitHub
+to package ‘fpm’ with itself. As written, it works for Debian derivatives,
+but should be adaptable to other distros with a few changes
+(remember, ‘fpm’ makes that easy).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you call <code>./fpm.sh pkg</code>, the package contents is created in
+<code>build</code> as a staging area, and when everything is ready, 
+<code>fpm</code> is called from within that staging area to create the final package:</p>
+
+<pre><code>build/opt_tools_fpm/opt/tools/fpm/bin/fpm \
+    -s dir -t deb -n opt-tools-fpm -v 1.11.0 \
+    --iteration 1 --category tools \
+    --deb-user root --deb-group root \
+    -m '"Juergen Hermann" &lt;jh@web.de&gt;' \
+    --license 'See contained license, or homepage' \
+    --vendor github.com/jhermann/priscilla \
+    --description 'fpm helps you build packages quickly and easily' \
+    --url http://fpm.readthedocs.io/ \
+    --workdir $PWD/build/opt_tools_fpm/tmp \
+    -a all -d 'openjdk-8-jre|…|java8-runtime-headless' \
+    opt usr
+
+</code></pre>
+<p>Yes, this is a mouthful, but still shorter than a <code>control</code> or <code>.spec</code> file,
+and easily adapted to other package managers.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This created a DEB file <code>./build/opt_tools_fpm/opt-tools-fpm_1.11.0-1_all.deb</code>, with this metadata:</p>
+
+<pre><code> new debian package, version 2.0.
+ size 23763108 bytes: control archive= 30446 bytes.
+     462 bytes,    12 lines      control              
+  119039 bytes,  1118 lines      md5sums              
+ Package: opt-tools-fpm
+ Version: 1.11.0-1
+ License: See contained license, or homepage
+ Vendor: github.com/jhermann/priscilla
+ Architecture: all
+ Maintainer: "Juergen Hermann" &lt;jh@web.de&gt;
+ Installed-Size: 27046
+ Depends: openjdk-8-jre|zulu8|…|java8-runtime-headless
+ Section: tools
+ Priority: extra
+ Homepage: http://fpm.readthedocs.io/
+ Description: fpm helps you build packages quickly and easily
+
+</code></pre>
+<p>The major part of files is installed into <code>/opt/tools/fpm</code>,
+but a symlink at <code>/usr/bin/fpm</code> makes the command available on the path.</p>
+<p>Building fpm 1.11.0 that way was tested on Ubuntu Bionic using
+openjdk-8-jre-headless 8u242.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-to-use-it">How to use it<a class="anchor-link" href="#How-to-use-it"> </a></h2><p>There are a lot of source and target types available in fpm
+(dir, gem, deb, npm, rpm, tar, cpan, pear, empty, puppet, python, osxpkg, solaris, 
+p5p, pkgin, freebsd, apk, snap, pleaserun, zip, virtualenv, pacman, sh),
+this example converts a Python workdir into a DEB package file.</p>
+<p>The <a href="https://github.com/jhermann/rudiments">rudiments</a> project serves as the example here, but you can use any pure Python project built with setuptools. 
+You have to clone the project and then call fpm like so:</p>
+
+<pre><code>( deactivate 2&gt;/dev/null; py=/usr/bin/python3; \
+  fpm -s python -t deb --category python \
+    --python-bin $py \
+    --python-pip "$py -m pip" \
+    --python-package-name-prefix "$(basename $py)" \
+    --python-obey-requirements-txt \
+    --python-install-data "/usr/local/share/$(basename $py)/$($py ./setup.py --name)" \
+    -m "\"$($py ./setup.py --author)\" &lt;$($py ./setup.py --author-email)&gt;" \
+    --vendor "$($py ./setup.py --url | cut -f3-4 -d/)" \
+    --force $PWD/setup.py )
+
+</code></pre>
+<p>The <code>--force</code> option overwrites an existing package file, so you can call the command multiple times without an error.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you inspect the built package with <code>dpkg-deb -I python3-rudiments_*_all.deb</code>,
+this is the output:</p>
+
+<pre><code> new Debian package, version 2.0.
+ size 31062 bytes: control archive=1417 bytes.
+     366 bytes,    12 lines      control              
+    3789 bytes,    30 lines      md5sums              
+ Package: python3-rudiments
+ Version: 0.3.1
+ License: Apache 2.0
+ Vendor: github.com/jhermann
+ Architecture: all
+ Maintainer: "Jürgen Hermann" &lt;jh@web.de&gt;
+ Installed-Size: 79
+ Depends: python3-requests (&gt;= 2.6)
+ Section: python
+ Priority: extra
+ Homepage: https://github.com/jhermann/rudiments
+ Description: Rudiments – Fundamental elements for any Python project.</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The package's content is placed into these directories:</p>
+
+<pre><code>/usr/local/lib/python3.6
+/usr/local/share/python3/rudiments
+/usr/share/doc/python3-rudiments
+
+</code></pre>
+<p>You can install it using <code>dpkg -i …</code> and then do a quick import test with this command:</p>
+
+<pre><code>python3 -c "import rudiments; print(rudiments)"</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Where-to-go-from-here">Where to go from here<a class="anchor-link" href="#Where-to-go-from-here"> </a></h2><p>Read more about ‘fpm’ on its <a href="https://github.com/jordansissel/fpm/wiki">github wiki</a>, or watch <a href="http://goo.gl/sWs3Z">this slide deck</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p><em>Credits: </em> Package icon by <a href="https://de.wikipedia.org/wiki/Datei:Breathe-package-x-generic.svg">Breathe Icon Team: Sebastian Porta, Cory Kontros, Andrew Starr-Bochicchio</a></p>
+</blockquote>
+
+</div>
+</div>
+</div>
+</div>
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jhermann/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/linux/deployment/2020/03/14/fpm_effing_package_managers.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Snakes on Callisto</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Snakes on Callisto</li><li><a class="u-email" href="mailto:jh@web.de">jh@web.de</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
+  <li><a href="https://github.com/jhermann"><svg class="social svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jhermann</span></a></li><li><a href="https://www.twitter.com/jhermann_"><svg class="social svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jhermann_</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Python · Jupyter(Hub) · DevSecOps · Software Architecture · Systems Design · Distributed Systems</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
