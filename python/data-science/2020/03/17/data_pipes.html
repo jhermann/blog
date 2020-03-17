@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Using R-style Data Pipelines in Notebooks | Snakes on Callisto</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Using R-style Data Pipelines in Notebooks" />
+<meta name="author" content="Jürgen Hermann" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Mutate data frames simply and elegantly with data pipelines." />
+<meta property="og:description" content="Mutate data frames simply and elegantly with data pipelines." />
+<link rel="canonical" href="https://jhermann.github.io/blog/python/data-science/2020/03/17/data_pipes.html" />
+<meta property="og:url" content="https://jhermann.github.io/blog/python/data-science/2020/03/17/data_pipes.html" />
+<meta property="og:site_name" content="Snakes on Callisto" />
+<meta property="og:image" content="https://jhermann.github.io/blog/images/copied_from_nb/img/data-science/data-pipes.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-17T00:00:00-05:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jhermann.github.io/blog/python/data-science/2020/03/17/data_pipes.html"},"author":{"@type":"Person","name":"Jürgen Hermann"},"image":"https://jhermann.github.io/blog/images/copied_from_nb/img/data-science/data-pipes.png","description":"Mutate data frames simply and elegantly with data pipelines.","@type":"BlogPosting","url":"https://jhermann.github.io/blog/python/data-science/2020/03/17/data_pipes.html","headline":"Using R-style Data Pipelines in Notebooks","dateModified":"2020-03-17T00:00:00-05:00","datePublished":"2020-03-17T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/assets/main.css">
+  <link rel="stylesheet" href="/blog/assets/custom.css">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://jhermann.github.io/blog/feed.xml" title="Snakes on Callisto" />
+
+  <script>
+  function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+  }
+  window.onload = wrap_img;
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      // add link icon to anchor tags
+      var elem = document.querySelectorAll(".anchor-link")
+      elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+      // remove paragraph tags in rendered toc (happens from notebooks)
+      var toctags = document.querySelectorAll(".toc-entry")
+      toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Snakes on Callisto</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">👤️ About Me</a><a class="page-link" href="/blog/search/">🔎️ Search</a><a class="page-link" href="/blog/categories/">📂️ Categories</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Using R-style Data Pipelines in Notebooks</h1><p class="page-description">Mutate data frames simply and elegantly with data pipelines.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-17T00:00:00-05:00" itemprop="datePublished">
+        2020-03-17
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">jhermann</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#data-science">data-science</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+<a href="https://github.com/jhermann/blog/tree/master/_notebooks/2020-03-17-data_pipes.ipynb" role="button">
+    <img class="notebook-badge-image" src="https://img.shields.io/static/v1?label=&message=View%20On%20GitHub&color=586069&logo=github&labelColor=2f363d">
+</a>
+</div><div class="px-2">
+    <a href="https://colab.research.google.com/github/jhermann/blog/blob/master/_notebooks/2020-03-17-data_pipes.ipynb">
+        <img class="notebook-badge-image" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-03-17-data_pipes.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/blog/images/copied_from_nb/img/data-science/data-pipes.png" alt="Cover Image" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Overview">Overview<a class="anchor-link" href="#Overview"> </a></h2><p>This post shows how mutating data frames can be written more elegantly (and thus understood more easily) by using <em>data pipelines</em>. R users know this concept from the <code>dplyr</code> package, and Python offers a similar one named <code>dfply</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Setting-the-Stage">Setting the Stage<a class="anchor-link" href="#Setting-the-Stage"> </a></h2><p>We start off with some global definitions…</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The sample data (about OS package deployments) is read into the <code>raw_data</code> dataframe from a CSV file.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">raw_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../assets/data/cmdb-packages.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;♯ of Records: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)))</span>
+
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Last &#39;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)))))</span>
+
+<span class="n">raw_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>♯ of Records: 146
+
+Distribution = [&#39;Debian 8.11&#39;, &#39;Debian 8.6&#39;, &#39;Debian 8.9&#39;, &#39;jessie&#39;]
+Architecture = [&#39;amd64&#39;]
+Environment = [&#39;&#39;, &#39;Canary&#39;, &#39;DEV&#39;, &#39;LIVE&#39;, &#39;QA&#39;]
+Team = [&#39;Automation&#39;, &#39;Big Data&#39;, &#39;Email&#39;, &#39;Ops App1&#39;, &#39;Ops Linux&#39;, &#39;Persistence&#39;, &#39;Platform&#39;]
+Installed version = [&#39;41.15-2(amd64)&#39;, &#39;42.28-2(amd64)&#39;, &#39;42.44-1(amd64)&#39;, &#39;45.11-1(amd64)&#39;, &#39;48.33-1(amd64)&#39;]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>CMDB_Id</th>
+      <td>274656589</td>
+      <td>153062618</td>
+      <td>282201163</td>
+    </tr>
+    <tr>
+      <th>Distribution</th>
+      <td>jessie</td>
+      <td>jessie</td>
+      <td>jessie</td>
+    </tr>
+    <tr>
+      <th>Architecture</th>
+      <td>amd64</td>
+      <td>amd64</td>
+      <td>amd64</td>
+    </tr>
+    <tr>
+      <th>Environment</th>
+      <td>DEV</td>
+      <td>DEV</td>
+      <td>LIVE</td>
+    </tr>
+    <tr>
+      <th>Team</th>
+      <td>Ops App1</td>
+      <td>Ops App1</td>
+      <td>Ops App1</td>
+    </tr>
+    <tr>
+      <th>Last seen</th>
+      <td>2019-02-18 11:43</td>
+      <td>2019-02-18 11:56</td>
+      <td>2019-02-18 12:04</td>
+    </tr>
+    <tr>
+      <th>Last modified</th>
+      <td>2019-02-18 11:43</td>
+      <td>2019-02-18 11:56</td>
+      <td>2019-02-18 12:04</td>
+    </tr>
+    <tr>
+      <th>Installed version</th>
+      <td>42.28-2(amd64)</td>
+      <td>42.28-2(amd64)</td>
+      <td>48.33-1(amd64)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">map_distro</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper to create canonical OS names.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Debian 7&#39;</span><span class="p">,</span> <span class="s1">&#39;wheezy&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Debian 8&#39;</span><span class="p">,</span> <span class="s1">&#39;jessie&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Debian 9&#39;</span><span class="p">,</span> <span class="s1">&#39;stretch&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Debian 10&#39;</span><span class="p">,</span> <span class="s1">&#39;buster&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;squeeze&#39;</span><span class="p">,</span> <span class="s1">&#39;Squeeze [6]&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;wheezy&#39;</span><span class="p">,</span> <span class="s1">&#39;Wheezy [7]&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;jessie&#39;</span><span class="p">,</span> <span class="s1">&#39;Jessie [8]&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;stretch&#39;</span><span class="p">,</span> <span class="s1">&#39;Stretch [9]&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;buster&#39;</span><span class="p">,</span> <span class="s1">&#39;Buster [10]&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Cleaning-With-Pandas">Data Cleaning With Pandas<a class="anchor-link" href="#Data-Cleaning-With-Pandas"> </a></h2><p>This code cleans up the imported data using the <em>Pandas</em> API.</p>
+<p>To get sensible version statistics, we split off the auxiliary information in the version column (anything after <code>-</code>), leaving just the <em>upstream</em> part of the version string. The environment classifier is also cleaned up a little, and distributions are mapped to a canonical set of names. Some unused columns are dropped.</p>
+<p>Finally, a subset of unique version samples is selected.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">raw_data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Version</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Installed version&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Environment</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">Environment</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;UNDEFINED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Distribution</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">Distribution</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">map_distro</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CMDB_Id&#39;</span><span class="p">,</span> <span class="s1">&#39;Last seen&#39;</span><span class="p">,</span> <span class="s1">&#39;Last modified&#39;</span><span class="p">,</span> <span class="s1">&#39;Installed version&#39;</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;Version&#39;</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>2</th>
+      <th>26</th>
+      <th>45</th>
+      <th>62</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Distribution</th>
+      <td>Jessie [8]</td>
+      <td>Jessie [8]</td>
+      <td>Jessie [8]</td>
+      <td>Jessie [8]</td>
+      <td>Jessie [8]</td>
+    </tr>
+    <tr>
+      <th>Architecture</th>
+      <td>amd64</td>
+      <td>amd64</td>
+      <td>amd64</td>
+      <td>amd64</td>
+      <td>amd64</td>
+    </tr>
+    <tr>
+      <th>Environment</th>
+      <td>DEV</td>
+      <td>LIVE</td>
+      <td>LIVE</td>
+      <td>UNDEFINED</td>
+      <td>DEV</td>
+    </tr>
+    <tr>
+      <th>Team</th>
+      <td>Ops App1</td>
+      <td>Ops App1</td>
+      <td>Platform</td>
+      <td>Email</td>
+      <td>Platform</td>
+    </tr>
+    <tr>
+      <th>Version</th>
+      <td>42.28</td>
+      <td>48.33</td>
+      <td>41.15</td>
+      <td>45.11</td>
+      <td>42.44</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Cleaning-With-Pipelines">Data Cleaning With Pipelines<a class="anchor-link" href="#Data-Cleaning-With-Pipelines"> </a></h2><p>This does the exact same processing as the code above, but is arguably more readable and maintained more easily:</p>
+<ul>
+<li>It has less boilerplate, and makes the use of pipelined processing transparent.</li>
+<li>Each step clearly states what it does to the data.</li>
+<li>When steps are copied into other pipelines, the <code>X</code> placeholder ensures you use the data of <em>this</em> pipeline (the code is more DRY)..</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">dfply</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">piped</span> <span class="o">=</span> <span class="p">(</span><span class="n">raw_data</span>
+    <span class="o">&gt;&gt;</span> <span class="n">mutate</span><span class="p">(</span><span class="n">Version</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;Installed version&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="o">&gt;&gt;</span> <span class="n">mutate</span><span class="p">(</span><span class="n">Environment</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">Environment</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;UNDEFINED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+    <span class="o">&gt;&gt;</span> <span class="n">mutate</span><span class="p">(</span><span class="n">Distribution</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">Distribution</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">map_distro</span><span class="p">))</span>
+    <span class="o">&gt;&gt;</span> <span class="n">drop</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">CMDB_Id</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;Last seen&#39;</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;Last modified&#39;</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;Installed version&#39;</span><span class="p">])</span>
+    <span class="o">&gt;&gt;</span> <span class="n">distinct</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">Version</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">piped</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>2</th>
+      <th>26</th>
+      <th>45</th>
+      <th>62</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Distribution</th>
+      <td>Jessie [8]</td>
+      <td>Jessie [8]</td>
+      <td>Jessie [8]</td>
+      <td>Jessie [8]</td>
+      <td>Jessie [8]</td>
+    </tr>
+    <tr>
+      <th>Architecture</th>
+      <td>amd64</td>
+      <td>amd64</td>
+      <td>amd64</td>
+      <td>amd64</td>
+      <td>amd64</td>
+    </tr>
+    <tr>
+      <th>Environment</th>
+      <td>DEV</td>
+      <td>LIVE</td>
+      <td>LIVE</td>
+      <td>UNDEFINED</td>
+      <td>DEV</td>
+    </tr>
+    <tr>
+      <th>Team</th>
+      <td>Ops App1</td>
+      <td>Ops App1</td>
+      <td>Platform</td>
+      <td>Email</td>
+      <td>Platform</td>
+    </tr>
+    <tr>
+      <th>Version</th>
+      <td>42.28</td>
+      <td>48.33</td>
+      <td>41.15</td>
+      <td>45.11</td>
+      <td>42.44</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To learn more about <code>dfply</code>, read the <a href="https://towardsdatascience.com/dplyr-style-data-manipulation-with-pipes-in-python-380dcb137000">dplyr-style Data Manipulation with Pipes in Python</a> blog post, which has more examples.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Reference-Links">Reference Links<a class="anchor-link" href="#Reference-Links"> </a></h2><h3 id="dfply">dfply<a class="anchor-link" href="#dfply"> </a></h3><ul>
+<li><a href="https://towardsdatascience.com/dplyr-style-data-manipulation-with-pipes-in-python-380dcb137000">dplyr-style Data Manipulation with Pipes in Python – Towards Data Science</a></li>
+<li><a href="https://github.com/kieferk/dfply">kieferk/dfply: dplyr-style piping operations for Pandas dataframes</a></li>
+</ul>
+<h3 id="Alternatives">Alternatives<a class="anchor-link" href="#Alternatives"> </a></h3><ul>
+<li><a href="https://github.com/has2k1/plydata">has2k1/plydata: A grammar for data manipulation in Python</a></li>
+<li><a href="https://github.com/shaypal5/pdpipe">shaypal5/pdpipe: Easy pipelines for Pandas dataframes</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jhermann/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/python/data-science/2020/03/17/data_pipes.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Snakes on Callisto</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Snakes on Callisto</li><li><a class="u-email" href="mailto:jh@web.de">jh@web.de</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
+  <li><a href="https://github.com/jhermann"><svg class="social svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jhermann</span></a></li><li><a href="https://www.twitter.com/jhermann_"><svg class="social svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jhermann_</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Python · Jupyter(Hub) · DevSecOps · Software Architecture · Systems Design · Distributed Systems</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
