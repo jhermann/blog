@@ -11,7 +11,7 @@
 }
 
 .post-content p, .post-content li {
-   color: black;
+    color: black;
 }
 
 h1, h2, h3, h4, h5 {
@@ -19,14 +19,15 @@ h1, h2, h3, h4, h5 {
 }
 
 code {
-	border-radius: 2px;
+    border-radius: 2px;
 }
 pre {
-	background-color: #005;
+    background-color: #005;
+    border-radius: 6px;
 }
 pre > code {
-	color: #f8f8f8;
-	background-color: #005;
+    color: #f8f8f8;
+    background-color: #005;
 }
 
 // * image-preview class should be on the containing div!
