@@ -2,14 +2,6 @@
     display: none;
 }
 
-.highlight .err, .highlight .g, .highlight .l, .highlight .n, .highlight .x,
-.highlight .ge, .highlight .gr, .highlight .gh, .highlight .gi, .highlight .gp,
-.highlight .gs, .highlight .gu, .highlight .gt, .highlight .ld, .highlight .no,
-.highlight .nd, .highlight .pi, .highlight .ni, .highlight .ne, .highlight .nn,
-.highlight .nx, .highlight .py, .highlight .w, .highlight .bp {
-    color: #3a3;
-}
-
 .post-content p, .post-content li {
     color: black;
 }
@@ -22,12 +14,22 @@ code {
     border-radius: 2px;
 }
 pre {
-    background-color: #005;
     border-radius: 6px;
 }
-pre > code {
+pre, pre > code, .highlight {
     color: #f8f8f8;
     background-color: #005;
+}
+
+.highlight pre .go {
+	color: #ddf;
+}
+.highlight pre .err, .highlight pre .g, .highlight pre .l, .highlight pre .n, .highlight pre .x,
+.highlight pre .ge, .highlight pre .gr, .highlight pre .gh, .highlight pre .gi, .highlight pre .gp,
+.highlight pre .gs, .highlight pre .gu, .highlight pre .gt, .highlight pre .ld, .highlight pre .no,
+.highlight pre .nd, .highlight pre .pi, .highlight pre .ni, .highlight pre .ne, .highlight pre .nn,
+.highlight pre .nx, .highlight pre .py, .highlight pre .w, .highlight pre .bp {
+	color: #dfd;
 }
 
 // * image-preview class should be on the containing div!
