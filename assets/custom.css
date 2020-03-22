@@ -18,6 +18,17 @@ h1, h2, h3, h4, h5 {
     color: #338;
 }
 
+code {
+	border-radius: 2px;
+}
+pre {
+	background-color: #005;
+}
+pre > code {
+	color: #f8f8f8;
+	background-color: #005;
+}
+
 // * image-preview class should be on the containing div!
 // * the divs below post-list should have class="post-item"!
 /*
