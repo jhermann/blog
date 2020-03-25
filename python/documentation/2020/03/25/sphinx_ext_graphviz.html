@@ -177,38 +177,38 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>And here's the related markup that needs to be added to one of your <code>.rst</code> files:</p>
-<div class="highlight"><pre><span></span><span class="err">..</span> <span class="err">graphviz::</span>
-    <span class="err">:name:</span> <span class="err">sphinx.ext.graphviz</span>
-    <span class="err">:caption:</span> <span class="err">Sphinx</span> <span class="err">and</span> <span class="err">GraphViz</span> <span class="err">Data</span> <span class="err">Flow</span>
-    <span class="err">:alt:</span> <span class="err">How</span> <span class="err">Sphinx</span> <span class="err">and</span> <span class="err">GraphViz</span> <span class="err">Render</span> <span class="err">the</span> <span class="err">Final</span> <span class="err">Document</span>
-    <span class="err">:align:</span> <span class="err">center</span>
+<div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">graphviz</span><span class="p">::</span>
+    <span class="nc">:name:</span> sphinx.ext.graphviz
+    <span class="nc">:caption:</span> Sphinx and GraphViz Data Flow
+    <span class="nc">:alt:</span> How Sphinx and GraphViz Render the Final Document
+    <span class="nc">:align:</span> center
 
-     <span class="err">digraph</span> <span class="s2">&quot;sphinx-ext-graphviz&quot;</span> <span class="p">{</span>
-         <span class="err">size=</span><span class="nt">&quot;6,4&quot;</span><span class="err">;</span>
-         <span class="err">rankdir=</span><span class="s2">&quot;LR&quot;</span><span class="err">;</span>
-         <span class="err">graph</span> <span class="p">[</span><span class="err">fontname=</span><span class="s2">&quot;Verdana&quot;</span><span class="p">,</span> <span class="err">fontsize=</span><span class="s2">&quot;12&quot;</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">node</span> <span class="p">[</span><span class="err">fontname=</span><span class="s2">&quot;Verdana&quot;</span><span class="p">,</span> <span class="err">fontsize=</span><span class="s2">&quot;12&quot;</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">edge</span> <span class="p">[</span><span class="err">fontname=</span><span class="s2">&quot;Sans&quot;</span><span class="p">,</span> <span class="err">fontsize=</span><span class="s2">&quot;9&quot;</span><span class="p">]</span><span class="err">;</span>
+     digraph &quot;sphinx-ext-graphviz&quot; {
+         size=&quot;6,4&quot;;
+         rankdir=&quot;LR&quot;;
+         graph [fontname=&quot;Verdana&quot;, fontsize=&quot;12&quot;];
+         node [fontname=&quot;Verdana&quot;, fontsize=&quot;12&quot;];
+         edge [fontname=&quot;Sans&quot;, fontsize=&quot;9&quot;];
 
-         <span class="err">sphinx</span> <span class="p">[</span><span class="err">label=</span><span class="s2">&quot;Sphinx&quot;</span><span class="p">,</span> <span class="err">shape=</span><span class="s2">&quot;component&quot;</span><span class="p">,</span>
-                   <span class="err">href=</span><span class="s2">&quot;https://www.sphinx-doc.org/&quot;</span><span class="p">,</span>
-                   <span class="err">target=</span><span class="s2">&quot;_blank&quot;</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">graphviz</span> <span class="p">[</span><span class="err">label=</span><span class="s2">&quot;GraphViz&quot;</span><span class="p">,</span> <span class="err">shape=</span><span class="s2">&quot;component&quot;</span><span class="p">,</span>
-                   <span class="err">href=</span><span class="s2">&quot;https://www.graphviz.org/&quot;</span><span class="p">,</span>
-                   <span class="err">target=</span><span class="s2">&quot;_blank&quot;</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">docs</span> <span class="p">[</span><span class="err">label=</span><span class="s2">&quot;Docs (.rst)&quot;</span><span class="p">,</span> <span class="err">shape=</span><span class="s2">&quot;folder&quot;</span><span class="p">,</span>
-               <span class="err">fillcolor=green</span><span class="p">,</span> <span class="err">style=filled</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">svg_file</span> <span class="p">[</span><span class="err">label=</span><span class="s2">&quot;SVG Image&quot;</span><span class="p">,</span> <span class="err">shape=</span><span class="s2">&quot;note&quot;</span><span class="p">,</span> <span class="err">fontcolor=white</span><span class="p">,</span>
-                 <span class="err">fillcolor=</span><span class="s2">&quot;#3333ff&quot;</span><span class="p">,</span> <span class="err">style=filled</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">html_files</span> <span class="p">[</span><span class="err">label=</span><span class="s2">&quot;HTML Files&quot;</span><span class="p">,</span> <span class="err">shape=</span><span class="s2">&quot;folder&quot;</span><span class="p">,</span>
-              <span class="err">fillcolor=yellow</span><span class="p">,</span> <span class="err">style=filled</span><span class="p">]</span><span class="err">;</span>
+         sphinx [label=&quot;Sphinx&quot;, shape=&quot;component&quot;,
+                   href=&quot;https://www.sphinx-doc.org/&quot;,
+                   target=&quot;_blank&quot;];
+         graphviz [label=&quot;GraphViz&quot;, shape=&quot;component&quot;,
+                   href=&quot;https://www.graphviz.org/&quot;,
+                   target=&quot;_blank&quot;];
+         docs [label=&quot;Docs (.rst)&quot;, shape=&quot;folder&quot;,
+               fillcolor=green, style=filled];
+         svg_file [label=&quot;SVG Image&quot;, shape=&quot;note&quot;, fontcolor=white,
+                 fillcolor=&quot;#3333ff&quot;, style=filled];
+         html_files [label=&quot;HTML Files&quot;, shape=&quot;folder&quot;,
+              fillcolor=yellow, style=filled];
 
-         <span class="err">docs</span> <span class="err">-&gt;</span> <span class="err">sphinx</span> <span class="p">[</span><span class="err">label=</span><span class="s2">&quot; parse &quot;</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">sphinx</span> <span class="err">-&gt;</span> <span class="err">graphviz</span> <span class="p">[</span><span class="err">label=</span><span class="s2">&quot; call &quot;</span><span class="p">,</span> <span class="err">style=dashed</span><span class="p">,</span> <span class="err">arrowhead=none</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">graphviz</span> <span class="err">-&gt;</span> <span class="err">svg_file</span> <span class="p">[</span><span class="err">label=</span><span class="s2">&quot; draw &quot;</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">sphinx</span> <span class="err">-&gt;</span> <span class="err">html_files</span> <span class="p">[</span><span class="err">label=</span><span class="s2">&quot; render &quot;</span><span class="p">]</span><span class="err">;</span>
-         <span class="err">svg_file</span> <span class="err">-&gt;</span> <span class="err">html_files</span> <span class="p">[</span><span class="err">style=dashed</span><span class="p">]</span><span class="err">;</span>
-     <span class="p">}</span>
+         docs -&gt; sphinx [label=&quot; parse &quot;];
+         sphinx -&gt; graphviz [label=&quot; call &quot;, style=dashed, arrowhead=none];
+         graphviz -&gt; svg_file [label=&quot; draw &quot;];
+         sphinx -&gt; html_files [label=&quot; render &quot;];
+         svg_file -&gt; html_files [style=dashed];
+     }
 </pre></div>
 <p>For all this to work, you need the <a href="https://www.graphviz.org/">GraphViz suite of tools</a> installed on the machine that renders the documentation.</p>
 
