@@ -193,9 +193,9 @@
          sphinx [label=&quot;Sphinx&quot;, shape=&quot;component&quot;,
                    href=&quot;https://www.sphinx-doc.org/&quot;,
                    target=&quot;_blank&quot;];
-         graphviz [label=&quot;GraphViz&quot;, shape=&quot;component&quot;,
-                   href=&quot;https://www.graphviz.org/&quot;,
-                   target=&quot;_blank&quot;];
+         dot [label=&quot;GraphViz&quot;, shape=&quot;component&quot;,
+              href=&quot;https://www.graphviz.org/&quot;,
+              target=&quot;_blank&quot;];
          docs [label=&quot;Docs (.rst)&quot;, shape=&quot;folder&quot;,
                fillcolor=green, style=filled];
          svg_file [label=&quot;SVG Image&quot;, shape=&quot;note&quot;, fontcolor=white,
@@ -204,8 +204,8 @@
               fillcolor=yellow, style=filled];
 
          docs -&gt; sphinx [label=&quot; parse &quot;];
-         sphinx -&gt; graphviz [label=&quot; call &quot;, style=dashed, arrowhead=none];
-         graphviz -&gt; svg_file [label=&quot; draw &quot;];
+         sphinx -&gt; dot [label=&quot; call &quot;, style=dashed, arrowhead=none];
+         dot -&gt; svg_file [label=&quot; draw &quot;];
          sphinx -&gt; html_files [label=&quot; render &quot;];
          svg_file -&gt; html_files [style=dashed];
      }
