@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Packaging Python Applications for Debian | Snakes on Callisto</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Packaging Python Applications for Debian" />
+<meta name="author" content="Jürgen Hermann" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Easily deploy any Python application in form of an ‘omnibus’ Debian package using dh-virtualenv." />
+<meta property="og:description" content="Easily deploy any Python application in form of an ‘omnibus’ Debian package using dh-virtualenv." />
+<link rel="canonical" href="https://jhermann.github.io/blog/python/devops/2020/03/28/dh_virtualenv_howto.html" />
+<meta property="og:url" content="https://jhermann.github.io/blog/python/devops/2020/03/28/dh_virtualenv_howto.html" />
+<meta property="og:site_name" content="Snakes on Callisto" />
+<meta property="og:image" content="https://jhermann.github.io/blog/images/copied_from_nb/img/python/dh-virtualenv.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-28T00:00:00-05:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jhermann.github.io/blog/python/devops/2020/03/28/dh_virtualenv_howto.html"},"author":{"@type":"Person","name":"Jürgen Hermann"},"image":"https://jhermann.github.io/blog/images/copied_from_nb/img/python/dh-virtualenv.png","description":"Easily deploy any Python application in form of an ‘omnibus’ Debian package using dh-virtualenv.","@type":"BlogPosting","url":"https://jhermann.github.io/blog/python/devops/2020/03/28/dh_virtualenv_howto.html","headline":"Packaging Python Applications for Debian","dateModified":"2020-03-28T00:00:00-05:00","datePublished":"2020-03-28T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/blog/assets/main.css">
+  <link rel="stylesheet" href="/blog/assets/custom.css">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://jhermann.github.io/blog/feed.xml" title="Snakes on Callisto" />
+
+  <script>
+  function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+  }
+  window.onload = wrap_img;
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      // add link icon to anchor tags
+      var elem = document.querySelectorAll(".anchor-link")
+      elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+      // remove paragraph tags in rendered toc (happens from notebooks)
+      var toctags = document.querySelectorAll(".toc-entry")
+      toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Snakes on Callisto</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">👤️ About Me</a><a class="page-link" href="/blog/search/">🔎️ Search</a><a class="page-link" href="/blog/categories/">📂️ Categories</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Packaging Python Applications for Debian</h1><p class="page-description">Easily deploy any Python application in form of an ‘omnibus’ Debian package using `dh-virtualenv`.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-28T00:00:00-05:00" itemprop="datePublished">
+        2020-03-28
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">jhermann</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#devops">devops</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+<a href="https://github.com/jhermann/blog/tree/master/_notebooks/2020-03-28-dh_virtualenv_howto.ipynb" role="button">
+    <img class="notebook-badge-image" src="https://img.shields.io/static/v1?label=&message=View%20On%20GitHub&color=586069&logo=github&labelColor=2f363d">
+</a>
+</div><div class="px-2">
+    <a href="https://colab.research.google.com/github/jhermann/blog/blob/master/_notebooks/2020-03-28-dh_virtualenv_howto.ipynb">
+        <img class="notebook-badge-image" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Introduction">Introduction </a></li>
+<li class="toc-entry toc-h2"><a href="#How-does-it-work?">How does it work? </a></li>
+<li class="toc-entry toc-h2"><a href="#Installing-the-build-tools">Installing the build tools </a></li>
+<li class="toc-entry toc-h2"><a href="#Packaging-an-example-project">Packaging an example project </a></li>
+<li class="toc-entry toc-h2"><a href="#Real-world-examples">Real-world examples </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-03-28-dh_virtualenv_howto.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/blog/images/copied_from_nb/img/python/dh-virtualenv.png" alt="Cover Image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This post shows how to easily deploy any Python application in form of an ‘omnibus’
+Debian package, i.e. one that contains all the application's dependencies, just like
+in a Java WAR. A basic understanding of Debian packaging, the Linux command prompt,
+and Python tooling is assumed.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">
+<a class="anchor" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction<a class="anchor-link" href="#Introduction"> </a>
+</h2>
+<p>In this article, I'll show how to use <code>dh-virtualenv</code> to create self-contained Debian packages to deploy a Python application. The resulting package is very similar to a <em>executable JAR</em> that you can start via <code>java -jar</code>, in that it contains all the moving parts except Python itself, without influencing or being influenced by version requirements of other applications. This also frees you from being restricted to the dependencies and their versions found on your target platforms, and makes porting to several different target environments easier.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The advantage of using a Debian package for deployment as opposed to the native Python tool chain is that you are less dependent on typical development tools and services, i.e. to deploy to QA or production environments you need neither Internet access nor any compiler suites (for extension packages). To achieve the same with direct use of <code>virtualenv</code> and <code>pip</code>, you'd need to have an in-house PyPI repository accessible from production networks, and also release any extension packages as wheels pre-built for the target platform. Removing and updating an application is also much easier with Debian packages.</p>
+<p>To use <code>dh-virtualenv</code>, you just have to extend your existing application project with a <code>debian</code> subdirectory – project meta-data like <code>pip</code> requirements and so on will be leveraged to build the final package, i.e. common tasks are delegated to the standard Python eco-system.</p>
+<p>Note that just like with any other form of omnibus packaging, you take over the responsibility to release security updates of the contained dependencies in a timely manner.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-does-it-work?">
+<a class="anchor" href="#How-does-it-work?" aria-hidden="true"><span class="octicon octicon-link"></span></a>How does it work?<a class="anchor-link" href="#How-does-it-work?"> </a>
+</h2>
+<p><code>dh-virtualenv</code> is a <em>debhelper</em> plugin that extends the normal Debian tool chain for package building with the ability to create a Python <a href="https://virtualenv.pypa.io/">virtualenv</a> (an isolated Python environment), and then wrap that into the final Debian package.</p>
+<p>Depending on the details of the application, you often also have to provide some kind of configuration of the software itself, and possibly some means to run it as a service. This can be done in several ways:</p>
+<ul>
+<li>add a <code>debian/«pkg».install</code> descriptor to add configuration files to the Debian package.</li>
+<li>provide a Puppet recipe or Ansible playbook that deploys the package and integrates it into the system.</li>
+<li>embed (default) configuration into the application's Python package (via the <code>include_package_data</code> option of <code>setuptools</code>).</li>
+</ul>
+<p>All those can be combined, e.g. provide defaults via Python package data, and then add external configuration that only provides values specific to the concrete host installation.</p>
+<p>A real-world example is the <a href="https://github.com/jhermann/devpi-puppet/blob/master/templates/supervisord.conf">devpi supervisor ERB template</a> that serves both the purpose of passing configuration to the application process (via command line options), and also starting and controlling that process (i.e. handle demonization and automatic startup on boot).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Installing-the-build-tools">
+<a class="anchor" href="#Installing-the-build-tools" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing the build tools<a class="anchor-link" href="#Installing-the-build-tools"> </a>
+</h2>
+<p>Unsurprisingly, you need to <a href="http://dh-virtualenv.readthedocs.org/en/latest/tutorial.html#step-1-install-dh-virtualenv">install dh-virtualenv</a> to use it. Since it is architecture independant, you can choose to use a <a href="https://packages.debian.org/sid/dh-virtualenv">recent release offered by Debian sid</a> whatever your build platform is.</p>
+<p>If this is your first time to build a Debian package, you also need to add the basic tools for that:</p>
+<div class="highlight"><pre><span></span>sudo apt-get install build-essential debhelper devscripts equivs
+</pre></div>
+<p>Finally, to take advantage of the available template for easily adding an inital <code>debian</code> directory, <a href="https://github.com/Springerle/springerle.github.io#installing-the-cookiecutter-cli">install the cookiecutter tool</a>. Note that you can opt to <a href="https://dockyard.readthedocs.io/en/latest/packaging-howto.html">build packages in a Docker container</a> instead, with only Docker as a requirement on your build host.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Packaging-an-example-project">
+<a class="anchor" href="#Packaging-an-example-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Packaging an example project<a class="anchor-link" href="#Packaging-an-example-project"> </a>
+</h2>
+<p>To add the necessary <code>debian</code> directory with minimal effort, you can use the
+<a href="https://github.com/Springerle/dh-virtualenv-mold#dh-virtualenv-mold">dh-virtualenv-mold</a>
+cookiecutter. The following commands basically repeat what the <a href="https://github.com/Springerle/dh-virtualenv-mold/blob/master/test.sh">integration test</a> script of that project does, namely instantiate a Python project and then add debianization on top of it.</p>
+<p>To provide common defaults to <code>cookiecutter</code>, it makes sense to have a <code>~/.cookiecutterrc</code> file similar to <a href="https://github.com/jhermann/ruby-slippers/blob/master/home/.cookiecutterrc">the one I use</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's first create a sample project:</p>
+<div class="highlight"><pre><span></span>mkdir -p ~/tmp/dh-venv-blog
+<span class="nb">cd</span> ~/tmp/dh-venv-blog
+cookiecutter --no-input <span class="se">\</span>
+    <span class="s2">"https://github.com/borntyping/cookiecutter-pypackage-minimal.git"</span>
+<span class="nb">cd</span> cookiecutter_pypackage_minimal/
+python3 setup.py build
+</pre></div>
+<p>You can of course also use one of your own, then just check that out instead. Next, we add the <code>debian</code> directory:</p>
+<div class="highlight"><pre><span></span>cookiecutter --no-input <span class="se">\</span>
+    <span class="s2">"https://github.com/Springerle/dh-virtualenv-mold.git"</span>
+dch -r <span class="s2">""</span> <span class="c1"># insert proper date &amp; distro</span>
+</pre></div>
+<p>Using <code>--no-input</code> causes the template's defaults to be accepted – it avoids answering all the template's prompts. After all, this is just a demo not requiring sensible inputs. Take the time to have a look at what's in the <code>debian</code> directory.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You're now able to build the package and if that succeeds, print the contained meta data:</p>
+<div class="highlight"><pre><span></span>dpkg-buildpackage -uc -us -b
+dpkg-deb -I ../pyvenv-foobar_*.deb
+</pre></div>
+<p>The last command should show you something like this:</p>
+<div class="highlight"><pre><span></span><span class="na">Package: pyvenv-foobar</span>
+<span class="na">Version: 0.1.0</span>
+<span class="na">Architecture: amd64</span>
+<span class="na">Maintainer: Jürgen Hermann &lt;jh@web.de&gt;</span>
+<span class="na">Installed-Size: 12877</span>
+<span class="na">Pre-Depends: dpkg (&gt;</span><span class="o">=</span> <span class="s">1.16.1), python3, python3-venv</span>
+<span class="na">Section: contrib/python</span>
+<span class="na">Priority: extra</span>
+<span class="na">Homepage: https://github.com/jschmoe/foobar</span>
+<span class="na">Description: A Python package and its dependencies packaged up as DEB in an isolated virtualenv.</span>
+</pre></div>
+<p>Finally, install the new package via <code>dpkg -i</code>, or upload it to a repository and use it from there with <code>apt</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Real-world-examples">
+<a class="anchor" href="#Real-world-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Real-world examples<a class="anchor-link" href="#Real-world-examples"> </a>
+</h2>
+<p>These are examples of <code>dh-virtualenv</code> packaging for non-trivial applications:</p>
+<ul>
+<li><a href="https://github.com/jhermann/devpi-enterprisey/tree/master/debianized-devpi#readme">devpi</a></li>
+<li><a href="https://github.com/ekalinin/nodeenv/tree/master/debian-upstream">nodeenv</a></li>
+<li><a href="https://github.com/1and1/debianized-sentry#readme">debianized-sentry</a></li>
+<li><a href="https://github.com/1and1/debianized-jupyterhub#readme">jupyterhub</a></li>
+</ul>
+<p>The last two show how to integrate Python web applications into <code>systemd</code>, instead of using <code>supervisor</code> like the <code>devpi</code> example. The <code>jupyterhub</code> one also demonstrates the integration of a Python project with server-side Javascript (in a NodeJS environment).</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jhermann/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/python/devops/2020/03/28/dh_virtualenv_howto.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Snakes on Callisto</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Snakes on Callisto</li><li><a class="u-email" href="mailto:jh@web.de">jh@web.de</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
+  <li><a href="https://github.com/jhermann"><svg class="social svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jhermann</span></a></li><li><a href="https://www.twitter.com/jhermann_"><svg class="social svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jhermann_</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Python · Jupyter(Hub) · DevSecOps · Software Architecture · Systems Design · Distributed Systems</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
