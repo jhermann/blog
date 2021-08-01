@@ -4,9 +4,9 @@ on:
     branches:
       - master # need to filter here so we only deploy when there is a push to master
   # no filters on pull requests, so intentionally left blank
-  pull_request: 
+  pull_request:
 
-jobs:     
+jobs:
   build-site:
     if: ( github.event.commits[0].message != 'Initial commit' ) || github.run_number > 1
     runs-on: ubuntu-latest
@@ -17,13 +17,8 @@ jobs:
       with:
         persist-credentials: false
 
-    - name: fastpages repo only - convert notebooks and word docs to posts
-      if: github.repository == 'fastai/fastpages'
-      uses: ./ # use code in this repo instead of a pinned version, for testing.
-
     - name: convert notebooks and word docs to posts
-      if: github.repository != 'fastai/fastpages'
-      uses: fastai/fastpages@v2.1.2 # use a pinned version
+      uses: ./ # use code in this repo instead of a pinned version
 
     - name: setup directories for Jekyll build
       run: |
@@ -34,7 +29,7 @@ jobs:
       uses: docker://jekyll/jekyll
       with:
         args: jekyll build -V
-        
+
     - name: copy CNAME file into _site if CNAME exists
       run: |
         sudo chmod -R 777 _site/
